@@ -11,7 +11,7 @@
         "noImplicitAny": false,
         "removeComments": true,
         "sourceMap": true,
-        "outDir": "build/",
+        "outDir": "build/app",
         "noLib": false,
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true

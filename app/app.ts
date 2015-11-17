@@ -57,13 +57,13 @@ bootstrap(AppComponent, [
   Logger,
   provide(UserService, { useFactory: () => {
     return new UserService({
-      host:"http://transpoint.herokuapp.com"
+      host:"https://transpoint.herokuapp.com"
     })
   }}),
   provide(AuthHttp, { useFactory: () => {
     return new AuthHttp({
       tokenName: "jwt",
-      host:"http://transpoint.herokuapp.com"
+      host:"https://transpoint.herokuapp.com"
     })
   }})
 ]);

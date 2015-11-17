@@ -6,8 +6,22 @@
     "**/node_modules/**",
     "**/.*"
   ],
-  "rewrites": [ {
+  "rewrites": [{
     "source": "**",
     "destination": "/index.html"
-  } ]
+  }],
+  "headers": [{
+    "source" : "**/app/**/*.@(js|map)",
+    "headers" : [ {
+      "key" : "Cache-Control",
+      "value" : "max-age=120"
+    }]
+  },
+  {
+    "source" : "**/vendor/**/*.@(js|map)",
+    "headers" : [ {
+      "key" : "Cache-Control",
+      "value" : "max-age=7200"
+    }]
+  }]
 }

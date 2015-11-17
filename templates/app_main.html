@@ -13,15 +13,8 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <!-- {{if .user.Id}}
-            <li><a class="" href="/webapp/panel"> {{ .user.Id }}</a></li>
-            <li><a class="" href="/webapp/logout">Log Out</a></li>
-            {{ else }}
-            <li><a class="" href="/webapp">Login</a></li>
-            <li><a class="" href="/webapp/register">Register</a></li>
-            {{end}} -->
 
-            <li><a [router-link]="['./List']">List of heroes</a></li>
+            <!-- <li><a [router-link]="['./List']">List of heroes</a></li> -->
             <li *ng-if="!userService.in"><a [router-link]="['./Login']">Login</a></li>
             <li *ng-if="!userService.in"><a [router-link]="['./Signup']">Register</a></li>
             <li *ng-if="userService.in"><a  [router-link]="['./Panel']">Panel ({{userService.username}})</a></li>

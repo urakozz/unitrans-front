@@ -55,5 +55,5 @@ export class Panel {
     }
 
     // TODO: Remove this when we're done
-    get diagnostic() { return JSON.stringify(this.keys); }
+    // get diagnostic() { return JSON.stringify(this.keys); }
 }

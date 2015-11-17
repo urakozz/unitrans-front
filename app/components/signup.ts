@@ -67,6 +67,6 @@ export class Signup {
     }
 
     // TODO: Remove this when we're done
-    get diagnostic() { return JSON.stringify(this.model); }
+    // get diagnostic() { return JSON.stringify(this.model); }
 
 }
