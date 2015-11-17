@@ -2,24 +2,26 @@
   <head>
     <base href="/">
     <title>Unitrans - Manage your i18n</title>
+    <meta name=viewport content="width=device-width, initial-scale=1">
     <!-- <script src="https://cdn.rawgit.com/jmcriffey/bower-traceur/0.0.89/traceur.min.js"></script> -->
     <!-- <script src="https://cdn.rawgit.com/ModuleLoader/es6-module-loader/master/dist/es6-module-loader.js"></script> -->
     <!-- <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.0.2/es6-promise.min.js"></script> -->
-    <script src="/build/vendor/fetch.js"></script>
-    <script src="/build/vendor/es6-shim.min.js"></script>
+
+    <script src="/build/vendor/fetch.js" async></script>
+    <script src="/build/vendor/es6-shim.min.js" async></script>
     <script src="/build/vendor/system.js"></script>
-    <script src="/build/vendor/angular2.min.js"></script>
-    <script src="/build/vendor/http.min.js"></script>
+    <script src="/build/vendor/angular2.min.js" ></script>
+    <script src="/build/vendor/http.min.js" ></script>
     <script src="/build/vendor/router.dev.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/4.0.7/rx.all.min.js"></script> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css"/>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css"/> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css"/> -->
     <!-- <link rel="stylesheet" href="https://cdn.rawgit.com/alexwolfe/Grids/master/css/grids.css"/> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,400italic,700" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/png" href="http://s24.postimg.org/72b0amgn5/Icon_29_2x.png">
     <script>
@@ -56,7 +58,7 @@
     </style>
   </head>
   <body>
-    <unitrans-app>loading...</unitrans-app>
+    <unitrans-app><i class="fa fa-circle-o-notch fa-spin"></i> loading...</unitrans-app>
   </body>
   <script>
   //var myFirebaseRef = new Firebase("https://blazing-heat-1536.firebaseio.com/web/data");
