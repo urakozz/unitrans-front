@@ -8,12 +8,13 @@
   "license": "ISC",
   "dependencies": {
     "angular2": "2.0.0-alpha.44",
-    "es6-shim":"*",
+    "es6-shim": "*",
     "rx": "^4.0.6",
     "systemjs": "~0.19.2",
     "whatwg-fetch": "^0.10.1"
   },
   "devDependencies": {
+    "gulp": "^3.9.0",
     "live-server": "^0.8.2",
     "typescript": "^1.6.2"
   },

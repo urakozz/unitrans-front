@@ -84,7 +84,7 @@ export class UserService {
 
 
     private loginPromise() {
-        return window.fetch('http://localhost:8088/webapi/login', {
+        return window.fetch(this.host + '/webapi/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -105,7 +105,7 @@ export class UserService {
     }
 
     private signupPromise() {
-        return window.fetch('http://localhost:8088/webapi/register', {
+        return window.fetch(this.host + '/webapi/register', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

@@ -40,7 +40,7 @@ class AppComponent {
 
     constructor(public userService: UserService, public router: Router) {
       console.log("app user in", userService.in)
-      
+
     }
 
     logout(){
@@ -57,13 +57,13 @@ bootstrap(AppComponent, [
   Logger,
   provide(UserService, { useFactory: () => {
     return new UserService({
-      host:"http://localhost:8088"
+      host:"http://transpoint.herokuapp.com"
     })
   }}),
   provide(AuthHttp, { useFactory: () => {
     return new AuthHttp({
       tokenName: "jwt",
-      host:"http://localhost:8088"
+      host:"http://transpoint.herokuapp.com"
     })
   }})
 ]);
