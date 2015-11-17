@@ -1,0 +1,36 @@
+<div class="navbar navbar-material-amber">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" [router-link]="['./Start']">Unitrans.io</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-inverse-collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="http://docs.transpoint.apiary.io/#">Documentation</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <!-- {{if .user.Id}}
+            <li><a class="" href="/webapp/panel"> {{ .user.Id }}</a></li>
+            <li><a class="" href="/webapp/logout">Log Out</a></li>
+            {{ else }}
+            <li><a class="" href="/webapp">Login</a></li>
+            <li><a class="" href="/webapp/register">Register</a></li>
+            {{end}} -->
+
+            <li><a [router-link]="['./List']">List of heroes</a></li>
+            <li *ng-if="!userService.in"><a [router-link]="['./Login']">Login</a></li>
+            <li *ng-if="!userService.in"><a [router-link]="['./Signup']">Register</a></li>
+            <li *ng-if="userService.in"><a  [router-link]="['./Panel']">Panel ({{userService.username}})</a></li>
+            <li *ng-if="userService.in"><a href="javascript:void(0)" (click)="logout()">Logout</a></li>
+        </ul>
+    </div>
+</div>
+<main>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</main>

@@ -1,0 +1,55 @@
+<h1>Login to your account</h1>
+<br><br>
+{{diagnostic}}
+<!-- Template-driven form -->
+<!-- http://blog.jhades.org/introduction-to-angular-2-forms-template-driven-vs-model-driven/ -->
+<!-- <form role="form" (ng-submit)="onSubmit()" #hf="form">
+    <div class="form-group form-group-material-amber" [class.has-error]="!email.valid && email.dirty">
+        <label for="name">Login</label>
+        <input type="email" class="form-control" placeholder="Login" [(ng-model)]="model.email"  #email="form" ng-control="email" required>
+        <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+          Email is required
+        </div>
+    </div>
+    <div class="form-group form-group-material-amber">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" placeholder="Password" [(ng-model)]="model.password" #password="form" ng-control="password" required minlength="6">
+        <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+          Password is required, Minimal length - 6 symbols
+        </div>
+    </div>
+    <input type="hidden" name="csrf_token" value="{{ token }}">
+    <button type="submit" class="btn btn-material-indigo" [disabled]="!hf.form.valid">Login</button>
+</form> -->
+
+<!-- Model Driven Forms -->
+<form role="form" [ng-form-model]="form" (ng-submit)="onSubmitFormModel(form)">
+    <div class="form-group form-group-material-amber" [class.has-error]="!form.controls.username.valid && form.controls.username.dirty">
+        <label for="username">Email</label>
+        <input type="email" class="form-control" placeholder="Email" [(ng-model)]="model.username" ng-control='username' [disabled]="submitting">
+        <div [hidden]="form.controls.username.valid || form.controls.username.pristine" class="alert alert-info">
+          <div *ng-if="form.controls.username.hasError('required')">
+            Email is required
+          </div>
+          <div *ng-if="form.controls.username.hasError('invalidEmail')">
+            Email is invalid
+          </div>
+        </div>
+    </div>
+    <div class="form-group form-group-material-amber">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" placeholder="Password" [(ng-model)]="model.password" ng-control='password' [disabled]="submitting">
+        <div [hidden]="form.controls.password.valid || form.controls.password.pristine" class="alert alert-info">
+          Email is required
+        </div>
+    </div>
+    <button type="submit" class="btn btn-material-indigo" [disabled]="!form.valid" [hidden]="submitting">Login</button>
+    <!-- <i class="fa fa-circle-o-notch fa-spin" [class.hidden]="!submitting"></i> -->
+</form>
+
+<p>
+    No account? <a href="javascript:void(0)" (click)="signupLink($event)">Register here</a>
+</p>
+<!-- <p>
+    No account? <a href="javascript:void(0)" [router-link]="['./Start']">Register here(router link)</a>
+</p> -->

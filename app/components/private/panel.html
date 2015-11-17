@@ -1,0 +1,35 @@
+<h1>
+Private part
+</h1>
+{{jwt}}
+
+<p>
+  <a href="javascript:void(0)" (click)="test($event)">Test</a>
+</p>
+
+<button class="btn btn-material-indigo" (click)="add()">
+    <span class="glyphicon glyphicon-plus"
+          aria-hidden="true"></span> Generate new key pair
+</button>
+
+{{diagnostic}}
+
+<div class="panel panel-default" *ng-for="#key of keys">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{key}}</h3>
+    </div>
+    <div class="panel-body">
+        <pre>X-Auth-Key: {{key}}</pre>
+        <pre>X-Auth-Secret: {{key}}</pre>
+        <form>
+            <input type="hidden" value="{{key}}" #keyvalue >
+            <button class="btn btn-warning" (click)="delete($event, keyvalue.value)">
+            <span class="glyphicon glyphicon-trash"
+                  aria-hidden="true"></span> Delete key</button>
+        </form>
+
+    </div>
+</div>
+<div *ng-if="!keys">
+  No keys
+</div>

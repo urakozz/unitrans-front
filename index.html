@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <base href="/">
+    <title>Angular 2 QuickStart</title>
+    <!-- <script src="https://cdn.rawgit.com/jmcriffey/bower-traceur/0.0.89/traceur.min.js"></script> -->
+    <!-- <script src="https://cdn.rawgit.com/ModuleLoader/es6-module-loader/master/dist/es6-module-loader.js"></script> -->
+    <!-- <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.0.2/es6-promise.min.js"></script> -->
+    <script src="/node_modules/whatwg-fetch/fetch.js"></script>
+    <script src="/node_modules/es6-shim/es6-shim.min.js"></script>
+    <script src="/node_modules/systemjs/dist/system.js"></script>
+    <script src="/node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="/node_modules/angular2/bundles/http.dev.js"></script>
+    <script src="/node_modules/angular2/bundles/router.dev.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/4.0.7/rx.all.min.js"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css"/>
+    <!-- <link rel="stylesheet" href="https://cdn.rawgit.com/alexwolfe/Grids/master/css/grids.css"/> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,400italic,700" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/png" href="http://s24.postimg.org/72b0amgn5/Icon_29_2x.png">
+    <script>
+      System.config({
+        baseURL: '/',
+        packages: {'build': {defaultExtension: 'js'}}
+      });
+      System.import('build/app');
+    </script>
+    <style>
+    .heroes {list-style-type: none; margin-left: 1em; padding: 0; width: 10em;}
+    .heroes li { cursor: pointer; position: relative; left: 0; transition: all 0.2s ease; }
+    .heroes li:hover {color: #369; background-color: #EEE; left: .2em;}
+    .heroes .badge {
+      font-size: small;
+      color: white;
+      padding: 0.1em 0.7em;
+      background-color: #369;
+      line-height: 1em;
+      position: relative;
+      left: -1px;
+      top: -1px;
+    }
+    .selected { background-color: #EEE; color: #369; }
+
+
+
+    a, a:hover, a:focus {
+        color: #3f51b5; /*indigo*/
+    }
+    .hidden {
+      display: none;
+    }
+    </style>
+  </head>
+  <body>
+    <unitrans-app>loading...</unitrans-app>
+  </body>
+  <script>
+  //var myFirebaseRef = new Firebase("https://blazing-heat-1536.firebaseio.com/web/data");
+  // myFirebaseRef.set({
+  //   smth: "Hello World!",
+  //   author: "Newone",
+  //
+  // });
+  // myFirebaseRef.child("messages").on("value", function(snapshot) {
+  //   console.log(snapshot.val());  // Alerts "San Francisco"
+  // });
+//   myFirebaseRef.child("messages").on("child_added", function(snapshot, prevChildKey) {
+//     var newPost = snapshot.val();
+//     console.log("Author: " + newPost.author);
+//     console.log("Title: " + newPost.title);
+//     console.log("Previous Post ID: " + prevChildKey);
+//   });
+//   var newMessage = myFirebaseRef.child("messages").push();
+//   newMessage.set({
+//     author: "gracehop",
+//     title: "Announcing COBOL, a New Programming Language"
+//   });
+// myFirebaseRef.child("author").on("value", function(snapshot) {
+//   console.log(snapshot.val());  // Alerts "San Francisco"
+// });
+
+// myFirebaseRef.createUser({
+//   email    : "bobtony@firebase.com",
+//   password : "correcthorsebatterystaple"
+// }, function(error, userData) {
+//   if (error) {
+//     console.log("Error creating user:", error);
+//   } else {
+//     console.log("Successfully created user account with uid:", userData.uid);
+//   }
+// });
+  </script>
+</html>

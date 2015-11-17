@@ -1,0 +1,35 @@
+<h1>Register new your account</h1>
+<br><br>
+{{diagnostic}}
+
+<!-- Model Driven Forms -->
+<form role="form" [ng-form-model]="form" (ng-submit)="onSubmitFormModel(form)">
+    <div class="form-group form-group-material-amber" [class.has-error]="!form.controls.username.valid && form.controls.username.dirty">
+        <label for="username">Email</label>
+        <input type="email" class="form-control" placeholder="Email" [(ng-model)]="model.username" ng-control='username' [disabled]="submitting">
+        <div [hidden]="form.controls.username.valid || form.controls.username.pristine" class="alert alert-info">
+          <div *ng-if="form.controls.username.hasError('required')">
+            Email is required
+          </div>
+          <div *ng-if="form.controls.username.hasError('invalidEmail')">
+            Email is invalid
+          </div>
+        </div>
+    </div>
+    <div class="form-group form-group-material-amber">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" placeholder="Password" [(ng-model)]="model.password" ng-control='password' [disabled]="submitting">
+        <div [hidden]="form.controls.password.valid || form.controls.password.pristine" class="alert alert-info">
+          Email is required
+        </div>
+    </div>
+    <button type="submit" class="btn btn-material-indigo" [disabled]="!form.valid" [hidden]="submitting">Login</button>
+    <!-- <i class="fa fa-circle-o-notch fa-spin" [class.hidden]="!submitting"></i> -->
+</form>
+
+<p>
+    Already have an account? <a href="javascript:void(0)" (click)="loginLink($event)">Login here</a>
+</p>
+<!-- <p>
+    No account? <a href="javascript:void(0)" [router-link]="['./Start']">Register here(router link)</a>
+</p> -->
