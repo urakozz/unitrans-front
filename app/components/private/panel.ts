@@ -1,4 +1,5 @@
 import {Component, View} from "angular2/angular2"
+import {Observable} from 'angular2/angular2';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2'
 import {Router} from 'angular2/router'
 
@@ -24,24 +25,25 @@ export class Panel {
 
     private getKeys() {
         this.http.get("/webapi/keys")
-            .map(res => res.json())
-            .subscribe(user => {
+            .map((res: Response) => res.json())
+            .subscribe((user:any) => {
+              console.log(user)
                 this.keys = user.keys
             });
     }
 
     add(){
       this.http.post("/webapi/keys", "")
-          .map(res => res.json())
-          .subscribe(user => {
+          .map((res: Response) => res.json())
+          .subscribe((user:any) => {
               this.keys = user.keys
           });
     }
 
     delete(event, id){
       this.http.delete("/webapi/keys/"+id)
-          .map(res => res.json())
-          .subscribe(user => {
+          .map((res: Response) => res.json())
+          .subscribe((user:any) => {
               this.keys = user.keys
           });
     }
@@ -49,7 +51,7 @@ export class Panel {
     test() {
         console.log(arguments)
         this.http.get("/webapi/test")
-            .subscribe((res: Response) => {
+            .subscribe((res) => {
                 console.log(res)
             });
     }

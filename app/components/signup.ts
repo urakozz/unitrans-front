@@ -19,16 +19,18 @@ import {UserService} from "../service/user"
 })
 export class Signup {
 
-    submitting = false;
+    private timeoutId: number
 
     public model: User
 
     public form: ControlGroup
 
+    submitting = false
+
     constructor(public router: Router, public builder: FormBuilder, public userService: UserService) {
         this.reset()
         function emailValidator(control) {
-            if (!control.value.match(/^.+\@.+\..+/)) {
+            if (!control.value.match(/^\w+\@\w+\.\w+/)) {
                 return { invalidEmail: true };
             }
         }
@@ -38,9 +40,23 @@ export class Signup {
         });
     }
 
-    reset(){
+    private reset(){
       this.model = new User("","")
     }
+
+    // private emailValidator(control) {
+    //   if (this.timeoutId) {
+    //     clearTimeout(this.timeoutId)
+    //   }
+    //   this.timeoutId = setTimeout(() => {
+    //     this.emailValid = !!control.value.match(/^.+\@.+\..+/)
+    //     console.log("timeout set valid", this.emailValid)
+    //   }, 250)
+    //
+    //   if (!this.emailValid) {
+    //     return { invalidEmail: true }
+    //   }
+    // }
 
     onSubmitFormModel(){
 

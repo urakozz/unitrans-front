@@ -1,5 +1,6 @@
 import {Injectable, Injector} from 'angular2/angular2';
-import {Http, HTTP_PROVIDERS, Headers, BaseRequestOptions, Request, RequestOptions, RequestOptionsArgs, RequestMethods} from 'angular2/http';
+import {Observable} from 'angular2/angular2';
+import {Http, HTTP_PROVIDERS, Headers, BaseRequestOptions, Request, Response, RequestOptions, RequestOptionsArgs, RequestMethods} from 'angular2/http';
 
 //let {Observable} = Rx;
 
@@ -43,7 +44,7 @@ export class AuthHttp {
     //var obs = new Rx.Observable()
   }
 
-  request(method:RequestMethods, url:string, body?:string) {
+  request(method:RequestMethods, url:string, body?:string): Observable<Response> {
 
     if(this.getJwt() === null || this.getJwt() === undefined || this.getJwt() === '') {
       throw 'No JWT Saved';
@@ -63,31 +64,31 @@ export class AuthHttp {
     return localStorage.getItem(this._config.tokenName);
   }
 
-  get(url:string) {
+  get(url:string): Observable<Response> {
     return this.request(RequestMethods.Get, this._config.host + url);
   }
 
-  post(url:string, body:string) {
+  post(url:string, body:string): Observable<Response>{
     return this.request(RequestMethods.Post, this._config.host + url, body);
   }
 
-  put(url:string, body:string) {
+  put(url:string, body:string): Observable<Response> {
     return this.request(RequestMethods.Put, this._config.host + url, body);
   }
 
-  delete(url:string, body?:string) {
+  delete(url:string, body?:string): Observable<Response> {
     return this.request(RequestMethods.Delete, this._config.host + url, body);
   }
 
-  options(url:string, body?:string) {
+  options(url:string, body?:string): Observable<Response> {
     return this.request(RequestMethods.Options, this._config.host + url, body);
   }
 
-  head(url:string, body?:string) {
+  head(url:string, body?:string): Observable<Response> {
     return this.request(RequestMethods.Head, this._config.host + url, body);
   }
 
-  patch(url:string, body:string) {
+  patch(url:string, body:string): Observable<Response> {
     return this.request(RequestMethods.Patch, this._config.host + url, body);
   }
 

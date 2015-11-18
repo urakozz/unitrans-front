@@ -7,9 +7,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "angular2": "2.0.0-alpha.44",
+    "angular2": "2.0.0-alpha.46",
     "es6-shim": "*",
-    "rx": "^4.0.6",
     "systemjs": "~0.19.2",
     "whatwg-fetch": "^0.10.1"
   },
