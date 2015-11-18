@@ -14,6 +14,9 @@
           <div *ng-if="form.controls.username.hasError('invalidEmail')">
             Email is invalid
           </div>
+          <div *ng-if="form.controls.username.hasError('exists')">
+            User not exists
+          </div>
         </div>
     </div>
     <div class="form-group form-group-material-amber">

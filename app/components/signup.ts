@@ -1,4 +1,6 @@
 import {Component, View, FormBuilder, Validators, ControlGroup} from "angular2/angular2"
+import {TimerWrapper} from 'angular2/src/facade/async';
+import {PromiseWrapper} from 'angular2/src/facade/promise';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2'
 import {Router} from 'angular2/router'
 import {AuthHttp} from '../service/jwt'
@@ -35,28 +37,35 @@ export class Signup {
             }
         }
         this.form = builder.group({
-            username: ["", Validators.compose([Validators.required, emailValidator])],
+            username: [
+              "",
+              Validators.compose([Validators.required, emailValidator]),
+              Validators.composeAsync([
+                 asyncValidator.bind(this)
+               ])],
             password: ["", Validators.required]
         });
+
+        function asyncValidator(control) {
+            var completer = PromiseWrapper.completer();
+            if (this.timeoutId) {
+              clearTimeout(this.timeoutId)
+            }
+            this.timeoutId = TimerWrapper.setTimeout(() => {
+              this.userService.checkExists(this.model).then(() => {
+                completer.resolve(null);
+              }).catch((error) => {
+                completer.resolve({exists:true})
+              })
+            }, 250);
+            return completer.promise;
+        }
+
     }
 
     private reset(){
       this.model = new User("","")
     }
-
-    // private emailValidator(control) {
-    //   if (this.timeoutId) {
-    //     clearTimeout(this.timeoutId)
-    //   }
-    //   this.timeoutId = setTimeout(() => {
-    //     this.emailValid = !!control.value.match(/^.+\@.+\..+/)
-    //     console.log("timeout set valid", this.emailValid)
-    //   }, 250)
-    //
-    //   if (!this.emailValid) {
-    //     return { invalidEmail: true }
-    //   }
-    // }
 
     onSubmitFormModel(){
 

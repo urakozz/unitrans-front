@@ -41,6 +41,17 @@ export class UserService {
         })
     }
 
+
+    public checkExists(user: User) {
+
+      this.user = user
+      return this
+        .checkExistsPromise()
+        .catch(err => {
+          return Promise.reject(err)
+        })
+    }
+
     public signup(user: User) {
 
       this.user = user
@@ -81,6 +92,23 @@ export class UserService {
       localStorage.setItem('jwt', token)
       localStorage.setItem("username", user.username)
     }
+
+
+    private checkExistsPromise() {
+        return window.fetch(this.host + '/webapi/checkExists', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: this.user.username, password: this.user.password
+            })
+        })
+            .then(status)
+            .catch((err) => Promise.reject(err))
+    }
+
 
 
     private loginPromise() {
