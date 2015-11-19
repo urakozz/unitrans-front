@@ -32,7 +32,7 @@ export class Signup {
     constructor(public router: Router, public builder: FormBuilder, public userService: UserService) {
         this.reset()
         function emailValidator(control) {
-            if (!control.value.match(/^\w+\@\w+\.\w+/)) {
+            if (!control.value.match(/^[a-zA-Z0-9\_\.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+$/)) {
                 return { invalidEmail: true };
             }
         }
@@ -53,9 +53,9 @@ export class Signup {
             }
             this.timeoutId = TimerWrapper.setTimeout(() => {
               this.userService.checkExists(this.model).then(() => {
-                completer.resolve(null);
+                completer.resolve({exists:true});
               }).catch((error) => {
-                completer.resolve({exists:true})
+                completer.resolve(null)
               })
             }, 250);
             return completer.promise;
