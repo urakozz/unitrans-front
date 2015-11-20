@@ -40,7 +40,6 @@ class AppComponent {
 
     constructor(public userService: UserService, public router: Router) {
       console.log("app user in", userService.in)
-
     }
 
     logout(){

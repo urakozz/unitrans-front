@@ -14,17 +14,17 @@ export class LoggedInRouterOutlet extends RouterOutlet {
 
     this.parentRouter = _parentRouter;
     this.publicRoutes = {
-      '/':true,
-      '/login': true,
-      '/signup': true
+      'login': true,
+      'signup': true
     };
   }
 
   activate(instruction: ComponentInstruction) {
-    var url = this.parentRouter.lastNavigationAttempt;
+    var url = instruction.urlPath
     console.log(url)
     if (url && !this.publicRoutes[url] && !localStorage.getItem('jwt')) {
       // todo: redirect to Login, may be there a better way?
+      console.log("Unauthorized, redirect", url, instruction)
       this.parentRouter.navigateByUrl('/login');
     }
     return super.activate(instruction);
