@@ -17,7 +17,7 @@
           <div *ng-if="form.controls.username.hasError('exists')">
             User exists
           </div>
-          <div *ng-if="form.controls.username.status == 'PENDING'">
+          <div *ng-if="form.controls.username.pending">
             <i class="fa fa-circle-o-notch fa-spin"></i>
           </div>
         </div>

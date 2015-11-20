@@ -37,7 +37,7 @@
           <div *ng-if="form.controls.username.hasError('exists')">
             User not exists
           </div>
-          <div *ng-if="form.controls.username.status == 'PENDING'">
+          <div *ng-if="form.controls.username.pending">
             <i class="fa fa-circle-o-notch fa-spin"></i>
           </div>
         </div>
@@ -46,7 +46,12 @@
         <label for="password">Password</label>
         <input type="password" class="form-control" placeholder="Password" [(ng-model)]="model.password" ng-control='password' [disabled]="submitting">
         <div [hidden]="form.controls.password.valid || form.controls.password.pristine" class="alert alert-info">
-          Email is required
+          <div *ng-if="form.controls.password.hasError('required')">
+            Password is required
+          </div>
+          <div *ng-if="form.controls.password.hasError('invalid')">
+            Pasword is invalid
+          </div>
         </div>
     </div>
     <button type="submit" class="btn btn-material-indigo" [disabled]="!form.valid" [hidden]="submitting">Login</button>

@@ -74,15 +74,17 @@ export class Login {
 
       this.userService.login(this.model)
         .then(() => {
-        console.log("login component ok")
-        this.router.parent.navigateByUrl('/panel');
-      })
-      .catch((error) => {
-        console.log("login component error catch: ", error.message);
-      }).then(() => {
-        this.submitting = false;
-        console.log("login component All done")
-      })
+          console.log("login component ok")
+          this.router.parent.navigateByUrl('/panel');
+        })
+        .catch((error) => {
+          console.log("login component error catch: ", error.message);
+          this.form.controls["password"].setErrors({invalid:true})
+          console.log(this.form.controls["password"])
+        }).then(() => {
+          this.submitting = false;
+          console.log("login component All done")
+        })
 
     }
 
