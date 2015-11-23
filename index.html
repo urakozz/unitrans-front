@@ -52,6 +52,11 @@
     body {
       /* Margin bottom by footer height */
       margin-bottom: 60px;
+      margin-top: 60px;
+    }
+    html {
+      position: relative;
+      min-height: 100%;
     }
 
     .footer {
@@ -62,6 +67,13 @@
       height: 60px;
       background-color: #f5f5f5;
     }
+
+    @media (min-width: 768px) {
+      .ut-container-navbar{
+        padding: 0 1rem;
+      }
+    }
+
     </style>
   </head>
   <body>
@@ -76,6 +88,13 @@
   <script src="https://yastatic.net/jquery/easing/1.3/jquery.easing.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script>
+    $(window).scroll(function () {
+        if ($(".navbar").offset().top > 50) {
+            $(".navbar-fixed-top").addClass("top-nav-collapse");
+        } else {
+            $(".navbar-fixed-top").removeClass("top-nav-collapse");
+        }
+    });
   //var myFirebaseRef = new Firebase("https://blazing-heat-1536.firebaseio.com/web/data");
   // myFirebaseRef.set({
   //   smth: "Hello World!",
