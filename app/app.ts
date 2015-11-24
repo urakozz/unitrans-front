@@ -3,7 +3,7 @@
 import {Component, bootstrap, provide, FORM_DIRECTIVES, CORE_DIRECTIVES, Injectable, View} from 'angular2/angular2'
 import {Http, HTTP_PROVIDERS, HTTP_BINDINGS} from 'angular2/http'
 import {ROUTER_BINDINGS, LocationStrategy} from 'angular2/router'
-import {ROUTER_DIRECTIVES, RouteConfig, RouterOutlet, Router, RouterLink, Location} from 'angular2/router'
+import {ROUTER_DIRECTIVES, RouteConfig, RouterOutlet, Router, RouterLink, AsyncRoute, Location} from 'angular2/router'
 import {LoggedInRouterOutlet} from './utils/routerOutlet';
 // import {FirebaseRef as firebase} from './service/firebase'
 import {Hero} from "./service/hero/hero"
@@ -34,7 +34,12 @@ import {Panel} from "./components/private/panel"
   { path:"/list", component: List, as:"List"},
   { path:"/login", component: Login, as:"Login"},
   { path:"/signup", component: Signup, as:"Signup"},
-  { path:"/panel", component: Panel, as:"Panel"}
+  // { path:"/panel", component: Panel, as:"Panel"},
+  new AsyncRoute({
+    path: '/panel',
+    loader: () => System.import('build/app/components/private/panel').then(m => m.Panel),
+    name: 'Panel'
+  })
 ])
 class AppComponent {
 
