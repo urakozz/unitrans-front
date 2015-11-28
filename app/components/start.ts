@@ -9,18 +9,16 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
     template: `
     <h1></h1><p>
     <div class="row">
-      <div class="col-md-12">
-        <div class="bs-component">
           <div class="jumbotron">
             <h1>Unitrans</h1>
 
-            <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <p>Try out translation across multiple translatiors right here</p>
             <div class="row Grid Grid--flexCells">
 
                 <div class="col-xs-12 col-md-6 Grid-cell">
                     <form class="width100" [ng-form-model]="formGroup">
                       <div class="form-group form-group-material-amber">
-                        <textarea class="form-control" rows="1" [(ng-model)]="sourceText" ng-control="source"></textarea>
+                        <textarea class="form-control" rows="1" [(ng-model)]="sourceText" ng-control="source" placeholder="Type text here"></textarea>
                       </div>
                     </form>
                 </div>
@@ -28,15 +26,32 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
                 <div *ng-if="sourceText && !processedData" >
                   <i class="fa fa-circle-o-notch fa-spin"></i>
                 </div>
-                <pre *ng-if="processedData" class="width100">{{processedText}}</pre>
+                <pre *ng-if="processedData && 0" class="width100">{{processedText}}</pre>
+
+                <div *ng-if="processedData" class="width100">
+                  <div class="panel">
+                    <div class="well well-sm well-material-amber shadow-z-0 margin-bottom-none">
+                      Source: <b>{{processedData.Source}}</b>
+                    </div>
+                    <div class="panel-body">
+                      {{processedData.Original}}
+                    </div>
+                  </div>
+                  <div class="panel" *ng-for="#item of processedList">
+                    <div class="well well-sm well-material-indigo shadow-z-0 margin-bottom-none">
+                      <span class="text-white">[{{item.lang}}] {{item.name}} </span>
+                    </div>
+                    <div class="panel-body">
+                      {{item.translation}}
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
             <p>
-              <a class="btn btn-material-indigo btn-lg" disabled>Learn more</a>
+              <span class="btn btn-material-indigo btn-lg" (click)="translateForce()">Translate</span>
             </p>
-          </div>
-        <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div>
-      </div>
     </div>
     <p>
     <p>
@@ -95,6 +110,20 @@ export class Start {
       return JSON.stringify(this.processedData, null, 2)
     }
 
+    get processedList(){
+      var list = []
+      Object.keys(this.processedData.RawTranslations).forEach((key)=>{
+        Object.keys(this.processedData.RawTranslations[key]).forEach((keyTr)=>{
+          list.push({"name":key, "lang":keyTr, "translation":this.processedData.RawTranslations[key][keyTr]})
+        })
+      })
+      return list
+    }
+
+    translateForce(){
+      this.asyncTranslator(this.sourceText)
+    }
+
     private asyncTranslator(value: string) {
       if (!value){
         this.processedData = undefined
@@ -121,8 +150,10 @@ export class Start {
             .map((res: Response) => res.json())
             .subscribe(
               (data) => {
-                console.log("success?", data)
-                this.processedData = data
+                console.log("success", data)
+                if (this.sourceText) {
+                  this.processedData = data
+                }
               },
               (err) => { console.log("error", err)},
               () => {console.log("done with request")}
