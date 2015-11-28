@@ -67,26 +67,30 @@
       background-color: #f5f5f5;
     }
 
+
+
     @media (min-width: 768px) {
       .ut-container-navbar{
         padding: 0 1rem;
       }
+
+      .Grid {
+        display: flex;
+      }
+      .Grid-cell {
+        flex: 1;
+      }
+      .Grid--flexCells>.Grid-cell {
+        display: flex;
+      }
     }
 
-.width100{
-  width:100%
-}
-.Grid {
-  display: flex;
-}
+    .width100{
+      width:100%
+    }
 
-.Grid-cell {
-  flex: 1;
-}
 
-.Grid--flexCells>.Grid-cell {
-  display: flex;
-}
+
 
     </style>
   </head>

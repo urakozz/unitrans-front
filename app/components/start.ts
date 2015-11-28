@@ -1,5 +1,6 @@
-import {Component, View} from "angular2/angular2"
-
+import {Component, View, Control, ControlGroup} from "angular2/angular2"
+import {Http, Headers, Request, Response, RequestOptions, RequestMethods} from "angular2/http"
+import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
 
 @Component({
     selector: 'start'
@@ -14,8 +15,25 @@ import {Component, View} from "angular2/angular2"
             <h1>Unitrans</h1>
 
             <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <div class="row Grid Grid--flexCells">
 
-            <p><a class="btn btn-material-indigo btn-lg">Learn more</a></p>
+                <div class="col-xs-12 col-md-6 Grid-cell">
+                    <form class="width100" [ng-form-model]="formGroup">
+                      <div class="form-group form-group-material-amber">
+                        <textarea class="form-control" rows="1" [(ng-model)]="sourceText" ng-control="source"></textarea>
+                      </div>
+                    </form>
+                </div>
+              <div class="col-xs-12 col-md-6 Grid-cell">
+                <div *ng-if="sourceText && !processedData" >
+                  <i class="fa fa-circle-o-notch fa-spin"></i>
+                </div>
+                <pre *ng-if="processedData" class="width100">{{processedText}}</pre>
+              </div>
+            </div>
+            <p>
+              <a class="btn btn-material-indigo btn-lg" disabled>Learn more</a>
+            </p>
           </div>
         <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div>
       </div>
@@ -59,7 +77,56 @@ import {Component, View} from "angular2/angular2"
 })
 export class Start {
     token: string
-    constructor() {
+    sourceText: string
+    processedData: any
+    formGroup: ControlGroup = new ControlGroup({
+      source: new Control()
+    })
+    private timeoutId: NodeJS.Timer
+
+    constructor(public http: Http) {
       this.token = localStorage.getItem("jwt")
+      this.formGroup.valueChanges.subscribe((values) => {
+        this.asyncTranslator(values.source)
+      });
+    }
+
+    get processedText(){
+      return JSON.stringify(this.processedData, null, 2)
+    }
+
+    private asyncTranslator(value: string) {
+      if (!value){
+        this.processedData = undefined
+        return
+      }
+        if (this.timeoutId) {
+          TimerWrapper.clearTimeout(this.timeoutId)
+        }
+        // this.timeoutId = TimerWrapper.setTimeout(() => {
+        //   console.log("tick", value)
+        //   console.log("this = ", this)
+        // }, 250);
+        this.timeoutId = TimerWrapper.setTimeout(() => {
+          var authHeader = new Headers();
+          // authHeader.append("X-Auth-Key", "12578502236444961733.a18f3ef1");
+          var request = this.http.request(new Request(new RequestOptions({
+            method: RequestMethods.Post,
+            url: "https://transpoint.herokuapp.com/webapi/tr",
+            body: JSON.stringify({text:this.sourceText, lang:["ru"]}),
+            headers: authHeader
+          })));
+
+          request
+            .map((res: Response) => res.json())
+            .subscribe(
+              (data) => {
+                console.log("success?", data)
+                this.processedData = data
+              },
+              (err) => { console.log("error", err)},
+              () => {console.log("done with request")}
+          )
+        }, 250);
     }
 }

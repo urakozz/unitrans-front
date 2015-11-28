@@ -52,7 +52,6 @@ class AppComponent {
       this.router.navigateByUrl('/')
     }
 
-
 }
 
 bootstrap(AppComponent, [
@@ -61,12 +60,14 @@ bootstrap(AppComponent, [
   Logger,
   provide(UserService, { useFactory: () => {
     return new UserService({
+      //host:"http://127.0.0.1:8088"
       host:"https://transpoint.herokuapp.com"
     })
   }}),
   provide(AuthHttp, { useFactory: () => {
     return new AuthHttp({
       tokenName: "jwt",
+      //host:"http://127.0.0.1:8088"
       host:"https://transpoint.herokuapp.com"
     })
   }})
