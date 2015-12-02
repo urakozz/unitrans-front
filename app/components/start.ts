@@ -39,7 +39,7 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
                   </div>
                   <div class="panel" *ng-for="#item of processedList">
                     <div class="well well-sm well-material-indigo shadow-z-0 margin-bottom-none">
-                      <span class="text-white">[{{item.Lang}}] {{item.Name}} ({{item.Time}} ms) </span>
+                      <span class="text-white">{{item.Name}} [{{item.Source || "?"}}-{{item.Lang}}] {{item.Time}} ms </span>
                     </div>
                     <div class="panel-body">
                       {{item.Translation}}
