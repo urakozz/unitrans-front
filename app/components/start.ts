@@ -8,12 +8,12 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
 @View({
     template: `
     <h1></h1><p>
-    <div class="row">
-          <div class="jumbotron">
+
+          <div class="well" style="">
             <h1>Unitrans</h1>
 
             <p>Try out translation across multiple translatiors right here</p>
-            <div class="row Grid Grid--flexCells">
+            <div class="row Grid Grid--flexCells" style="margin-top:5rem">
 
                 <div class="col-xs-12 col-md-6 Grid-cell">
                     <form class="width100" [ng-form-model]="formGroup">
@@ -39,10 +39,10 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
                   </div>
                   <div class="panel" *ng-for="#item of processedList">
                     <div class="well well-sm well-material-indigo shadow-z-0 margin-bottom-none">
-                      <span class="text-white">[{{item.lang}}] {{item.name}} </span>
+                      <span class="text-white">[{{item.Lang}}] {{item.Name}} ({{item.Time}} ms) </span>
                     </div>
                     <div class="panel-body">
-                      {{item.translation}}
+                      {{item.Translation}}
                     </div>
                   </div>
 
@@ -111,13 +111,7 @@ export class Start {
     }
 
     get processedList(){
-      var list = []
-      Object.keys(this.processedData.RawTranslations).forEach((key)=>{
-        Object.keys(this.processedData.RawTranslations[key]).forEach((keyTr)=>{
-          list.push({"name":key, "lang":keyTr, "translation":this.processedData.RawTranslations[key][keyTr]})
-        })
-      })
-      return list
+      return this.processedData.RawTransData
     }
 
     translateForce(){
