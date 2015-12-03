@@ -26,7 +26,6 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
                 <div *ng-if="sourceText && !processedData" >
                   <i class="fa fa-circle-o-notch fa-spin"></i>
                 </div>
-                <pre *ng-if="processedData && 0" class="width100">{{processedText}}</pre>
 
                 <div *ng-if="processedData" class="width100">
                   <div class="panel">
@@ -47,6 +46,11 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
                   </div>
 
                 </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <pre *ng-if="processedData" class="width100">{{processedText}}</pre>
               </div>
             </div>
             <p>
