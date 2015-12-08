@@ -61,14 +61,16 @@ bootstrap(AppComponent, [
   provide(UserService, { useFactory: () => {
     return new UserService({
       //host:"http://127.0.0.1:8088"
-      host:"https://transpoint.herokuapp.com"
+      //host:"https://transpoint.herokuapp.com"
+      host:"http://104.155.71.69"
     })
   }}),
   provide(AuthHttp, { useFactory: () => {
     return new AuthHttp({
       tokenName: "jwt",
       //host:"http://127.0.0.1:8088"
-      host:"https://transpoint.herokuapp.com"
+      //host:"https://transpoint.herokuapp.com"
+      host:"http://104.155.71.69"
     })
   }})
 ]);

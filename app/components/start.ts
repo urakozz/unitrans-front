@@ -139,7 +139,7 @@ export class Start {
           // authHeader.append("X-Auth-Key", "12578502236444961733.a18f3ef1");
           var request = this.http.request(new Request(new RequestOptions({
             method: RequestMethods.Post,
-            url: "https://transpoint.herokuapp.com/webapi/tr",
+            url: "http://104.155.71.69/webapi/tr",
             body: JSON.stringify({text:this.sourceText, lang:["ru"]}),
             headers: authHeader
           })));
