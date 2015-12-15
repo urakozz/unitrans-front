@@ -55,16 +55,15 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
               <span class="btn btn-material-indigo btn-lg" (click)="translateForce()">Translate</span>
             </p>
     </div>
-    <p>
-    <p>
 
-    <h1></h1>
-<h1>Key Features</h1>
+  <div class="row">
+      <h1 class="header__padding">Key Features</h1>
+  </div>
 <div class="row Grid Grid--flexCells">
 
   <div class="col-xs-12 col-md-4 Grid-cell">
     <div class="panel panel-default width100">
-      <div class="panel-heading panel-material-indigo well-material-ingigo">Panel heading without title</div>
+      <div class="panel-heading-material-indigo">Panel heading without title</div>
       <div class="panel-body">
         Basic panel example<p><p>
         ddd</p></p>67
@@ -74,7 +73,7 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
 
 <div class="col-xs-12 col-md-4 Grid-cell">
   <div class="panel panel-default width100">
-  <div class="panel-heading">Panel heading without title</div>
+  <div class="panel-heading-material-indigo">Panel heading without title</div>
   <div class="panel-body">
     Basic panel example
     <p>
@@ -84,7 +83,7 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
 
 <div class="col-xs-12 col-md-4 Grid-cell">
 <div class="panel panel-default width100">
-<div class="panel-heading">Panel heading without title</div>
+<div class="panel-heading-material-indigo">Panel heading without title</div>
   <div class="panel-body">
     Basic panel example
   </div>
@@ -137,7 +136,7 @@ export class Start {
           // authHeader.append("X-Auth-Key", "12578502236444961733.a18f3ef1");
           var request = this.http.request(new Request(new RequestOptions({
             method: RequestMethods.Post,
-            url: "https://unitrans.me/webapi/tr",
+            url: "https://transpoint.herokuapp.com",
             body: JSON.stringify({text:this.sourceText, lang:["ru"]}),
             headers: authHeader
           })));

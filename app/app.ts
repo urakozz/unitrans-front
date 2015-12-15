@@ -61,14 +61,14 @@ bootstrap(AppComponent, [
   provide(UserService, { useFactory: () => {
     return new UserService({
       //host:"http://127.0.0.1:8088"
-      host:"https://unitrans.me"
+      host:"https://transpoint.herokuapp.com"
     })
   }}),
   provide(AuthHttp, { useFactory: () => {
     return new AuthHttp({
       tokenName: "jwt",
       //host:"http://127.0.0.1:8088"
-      host:"https://unitrans.me"
+      host:"https://transpoint.herokuapp.com"
     })
   }})
 ]);
