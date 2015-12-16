@@ -45,6 +45,7 @@ class AppComponent {
 
     constructor(public userService: UserService, public router: Router) {
       console.log("app user in", userService.in)
+      window.fetch(userService.getHost()).then(res => console.log(res)).catch(()=>{console.log("^^^ Do not worry, I'm weared")})
     }
 
     logout(){

@@ -28,6 +28,10 @@ export class UserService {
     //     this.currentUser.onNext(newUser);
     // }
 
+    public getHost(): string{
+      return this.host
+    }
+
     public login(user: User) {
 
       this.user = user
