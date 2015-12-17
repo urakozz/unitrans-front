@@ -1,7 +1,7 @@
-import {Component, View} from "angular2/angular2"
-import {Observable} from 'angular2/angular2';
-import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2'
+import {Component, View} from "angular2/core"
+import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
 import {Router} from 'angular2/router'
+import { Observable } from 'rxjs/Observable';
 
 import {AuthHttp} from '../../service/jwt'
 import {UserService} from "../../service/user"
@@ -25,26 +25,23 @@ export class Panel {
 
     private getKeys() {
         this.http.get("/webapi/keys")
-            .map((res: Response) => res.json())
-            .subscribe((user:any) => {
-              console.log(user)
-                this.keys = user.keys
+            .subscribe(res => {
+              console.log(res.json())
+                this.keys = res.json().keys
             });
     }
 
     add(){
       this.http.post("/webapi/keys", "")
-          .map((res: Response) => res.json())
-          .subscribe((user:any) => {
-              this.keys = user.keys
+          .subscribe(res => {
+              this.keys = res.json().keys
           });
     }
 
     delete(event, id){
       this.http.delete("/webapi/keys/"+id)
-          .map((res: Response) => res.json())
-          .subscribe((user:any) => {
-              this.keys = user.keys
+          .subscribe(res => {
+              this.keys = res.json().keys
           });
     }
 

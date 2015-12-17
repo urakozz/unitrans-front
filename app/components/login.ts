@@ -1,9 +1,9 @@
-import {Component, View, FormBuilder, Validators, ControlGroup} from "angular2/angular2"
-import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2'
+import {Component, View} from "angular2/core"
+import {FormBuilder, Validators, ControlGroup} from "angular2/common"
+import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
 import {TimerWrapper} from 'angular2/src/facade/async'
 import {PromiseWrapper} from 'angular2/src/facade/promise'
 import {Router} from 'angular2/router'
-import {Http, Request, RequestOptions, RequestMethods, Headers} from "angular2/http"
 import {AuthHttp} from '../service/jwt'
 import {Logger} from '../service/logger'
 import {status, json} from '../utils/fetch'
@@ -59,6 +59,7 @@ export class Login {
               }).catch((error) => {
                 completer.resolve({exists:true})
               })
+
             }, 250);
             return completer.promise;
         }

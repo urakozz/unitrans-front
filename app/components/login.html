@@ -23,33 +23,33 @@
 </form> -->
 
 <!-- Model Driven Forms -->
-<form role="form" [ng-form-model]="form" (ng-submit)="onSubmitFormModel(form)">
+<form role="form" [ngFormModel]="form" (ngSubmit)="onSubmitFormModel(form)">
     <div class="form-group form-group-material-amber" [class.has-error]="!form.controls.username.valid && form.controls.username.dirty">
         <label for="username">Email</label>
-        <input type="email" class="form-control" placeholder="Email" [(ng-model)]="model.username" ng-control='username' [disabled]="submitting">
+        <input type="email" class="form-control" placeholder="Email" [(ngModel)]="model.username" ngControl='username' [disabled]="submitting">
         <div [hidden]="form.controls.username.valid || form.controls.username.pristine" class="alert alert-info">
-          <div *ng-if="form.controls.username.hasError('required')">
+          <div *ngIf="form.controls.username.hasError('required')">
             Email is required
           </div>
-          <div *ng-if="form.controls.username.hasError('invalidEmail')">
+          <div *ngIf="form.controls.username.hasError('invalidEmail')">
             Email is invalid
           </div>
-          <div *ng-if="form.controls.username.hasError('exists')">
+          <div *ngIf="form.controls.username.hasError('exists')">
             User not exists
           </div>
-          <div *ng-if="form.controls.username.pending">
+          <div *ngIf="form.controls.username.pending">
             <i class="fa fa-circle-o-notch fa-spin"></i>
           </div>
         </div>
     </div>
     <div class="form-group form-group-material-amber">
         <label for="password">Password</label>
-        <input type="password" class="form-control" placeholder="Password" [(ng-model)]="model.password" ng-control='password' [disabled]="submitting">
+        <input type="password" class="form-control" placeholder="Password" [(ngModel)]="model.password" ngControl='password' [disabled]="submitting">
         <div [hidden]="form.controls.password.valid || form.controls.password.pristine" class="alert alert-info">
-          <div *ng-if="form.controls.password.hasError('required')">
+          <div *ngIf="form.controls.password.hasError('required')">
             Password is required
           </div>
-          <div *ng-if="form.controls.password.hasError('invalid')">
+          <div *ngIf="form.controls.password.hasError('invalid')">
             Pasword is invalid
           </div>
         </div>

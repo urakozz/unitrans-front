@@ -4,6 +4,7 @@ var target = {
 };
 var paths = {
     'fetch': './node_modules/whatwg-fetch/',
+    'rxjs': './node_modules/rxjs/bundles/',
     'shim': './node_modules/es6-shim/',
     'systemjs': './node_modules/systemjs/dist/',
     'angular': './node_modules/angular2/bundles/'
@@ -12,9 +13,10 @@ var paths = {
 gulp.task('js', function (done) {
     var js = [
         paths.fetch + "*.js",
-        paths.shim + "*.js",
+        paths.shim + "*.min.js",
         paths.systemjs + "*.js",
-        paths.angular + "*.js"
+        paths.rxjs + "*.min.js",
+        paths.angular + "*.min.js"
     ];
     js = js.concat(js.map(function (item) {
         return item + ".map"

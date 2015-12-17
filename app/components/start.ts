@@ -1,6 +1,10 @@
-import {Component, View, Control, ControlGroup} from "angular2/angular2"
-import {Http, Headers, Request, Response, RequestOptions, RequestMethods} from "angular2/http"
+import {Component, View} from "angular2/core"
+import {Control, ControlGroup} from "angular2/common"
+import {Http, Headers, Request, Response, RequestOptions, RequestMethod} from "angular2/http"
 import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
+
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operator/map';
 
 @Component({
     selector: 'start'
@@ -14,18 +18,18 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
             <div class="row Grid Grid--flexCells" style="margin-top:5rem">
 
                 <div class="col-xs-12 col-md-6 Grid-cell">
-                    <form class="width100" [ng-form-model]="formGroup">
+                    <form class="width100" [ngFormModel]="formGroup">
                       <div class="form-group form-group-material-amber">
-                        <textarea class="form-control" rows="1" [(ng-model)]="sourceText" ng-control="source" placeholder="Type text here"></textarea>
+                        <textarea class="form-control" rows="1" [(ngModel)]="sourceText" ngControl="source" placeholder="Type text here"></textarea>
                       </div>
                     </form>
                 </div>
               <div class="col-xs-12 col-md-6 Grid-cell">
-                <div *ng-if="sourceText && !processedData" >
+                <div *ngIf="sourceText && !processedData" >
                   <i class="fa fa-circle-o-notch fa-spin"></i>
                 </div>
 
-                <div *ng-if="processedData" class="width100">
+                <div *ngIf="processedData" class="width100">
                   <div class="panel">
                     <div class="well well-sm well-material-amber shadow-z-0 margin-bottom-none">
                       Source: <b>{{processedData.Source}}</b>
@@ -34,7 +38,7 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
                       {{processedData.Original}}
                     </div>
                   </div>
-                  <div class="panel" *ng-for="#item of processedList">
+                  <div class="panel" *ngFor="#item of processedList">
                     <div class="well well-sm well-material-indigo shadow-z-0 margin-bottom-none">
                       <span class="text-white">{{item.Name}} [{{item.Source || "?"}}-{{item.Lang}}] {{item.Time}} ms </span>
                     </div>
@@ -48,7 +52,7 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
             </div>
             <div class="row">
               <div class="col-xs-12">
-                <pre *ng-if="processedData" class="width100">{{processedText}}</pre>
+                <pre *ngIf="processedData" class="width100">{{processedText}}</pre>
               </div>
             </div>
             <p>
@@ -66,7 +70,7 @@ import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
       <div class="panel-heading-material-indigo">Panel heading without title</div>
       <div class="panel-body">
         Basic panel example<p><p>
-        ddd</p></p>67
+        ddd</p>
       </div>
     </div>
   </div>
@@ -135,7 +139,7 @@ export class Start {
           var authHeader = new Headers();
           // authHeader.append("X-Auth-Key", "12578502236444961733.a18f3ef1");
           var request = this.http.request(new Request(new RequestOptions({
-            method: RequestMethods.Post,
+            method: RequestMethod.Post,
             url: "https://transpoint.herokuapp.com/webapi/tr",
             //url: "http://127.0.0.1:8088/webapi/tr",
             body: JSON.stringify({text:this.sourceText, lang:["ru"]}),
@@ -143,9 +147,9 @@ export class Start {
           })));
 
           request
-            .map((res: Response) => res.json())
             .subscribe(
               (data) => {
+                data = data.json()
                 console.log("success", data)
                 if (this.sourceText) {
                   this.processedData = data
@@ -154,6 +158,6 @@ export class Start {
               (err) => { console.log("error", err)},
               () => {console.log("done with request")}
           )
-        }, 250);
+        }, 200);
     }
 }

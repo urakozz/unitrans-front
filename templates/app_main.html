@@ -6,7 +6,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" [router-link]="['./Start']">Unitrans.io</a>
+        <a class="navbar-brand" [routerLink]="['./Start']">Unitrans.io</a>
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
         <ul class="nav navbar-nav">
@@ -16,10 +16,10 @@
         <ul class="nav navbar-nav navbar-right">
 
             <!-- <li><a [router-link]="['./List']">List of heroes</a></li> -->
-            <li *ng-if="!userService.in"><a [router-link]="['./Login']">Login</a></li>
-            <li *ng-if="!userService.in"><a [router-link]="['./Signup']">Register</a></li>
-            <li *ng-if="userService.in"><a  [router-link]="['./Panel']">Panel ({{userService.username}})</a></li>
-            <li *ng-if="userService.in"><a href="javascript:void(0)" (click)="logout()">Logout</a></li>
+            <li *ngIf="!userService.in"><a [routerLink]="['./Login']">Login</a></li>
+            <li *ngIf="!userService.in"><a [routerLink]="['./Signup']">Register</a></li>
+            <li *ngIf="userService.in"><a  [routerLink]="['./Panel']">Panel ({{userService.username}})</a></li>
+            <li *ngIf="userService.in"><a href="javascript:void(0)" (click)="logout()">Logout</a></li>
         </ul>
     </div>
   </div>

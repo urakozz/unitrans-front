@@ -1,7 +1,8 @@
-import {Component, View, FormBuilder, Validators, ControlGroup} from "angular2/angular2"
+import {Component, View} from "angular2/core"
+import {FormBuilder, Validators, ControlGroup} from "angular2/common"
 import {TimerWrapper} from 'angular2/src/facade/async';
 import {PromiseWrapper} from 'angular2/src/facade/promise';
-import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2'
+import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
 import {Router} from 'angular2/router'
 import {AuthHttp} from '../service/jwt'
 import {Logger} from '../service/logger'

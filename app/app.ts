@@ -1,8 +1,8 @@
 /// <reference path="./typings/app.d.ts" />
-
-import {Component, bootstrap, provide, FORM_DIRECTIVES, CORE_DIRECTIVES, Injectable, View} from 'angular2/angular2'
-import {Http, HTTP_PROVIDERS, HTTP_BINDINGS} from 'angular2/http'
-import {ROUTER_BINDINGS, LocationStrategy} from 'angular2/router'
+import{ FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common"
+import {Component, Injectable, View} from 'angular2/core'
+import {Http} from 'angular2/http'
+import {LocationStrategy} from 'angular2/router'
 import {ROUTER_DIRECTIVES, RouteConfig, RouterOutlet, Router, RouterLink, AsyncRoute, Location} from 'angular2/router'
 import {LoggedInRouterOutlet} from './utils/routerOutlet';
 // import {FirebaseRef as firebase} from './service/firebase'
@@ -34,14 +34,14 @@ import {Panel} from "./components/private/panel"
   { path:"/list", component: List, as:"List"},
   { path:"/login", component: Login, as:"Login"},
   { path:"/signup", component: Signup, as:"Signup"},
-  // { path:"/panel", component: Panel, as:"Panel"},
-  new AsyncRoute({
-    path: '/panel',
-    loader: () => System.import('build/app/components/private/panel').then(m => m.Panel),
-    name: 'Panel'
-  })
+  { path:"/panel", component: Panel, as:"Panel"},
+  // new AsyncRoute({
+  //   path: '/panel',
+  //   loader: () => System.import('build/app/components/private/panel').then(m => m.Panel),
+  //   name: 'Panel'
+  // })
 ])
-class AppComponent {
+export class AppComponent {
 
     constructor(public userService: UserService, public router: Router) {
       console.log("app user in", userService.in)
@@ -54,22 +54,3 @@ class AppComponent {
     }
 
 }
-
-bootstrap(AppComponent, [
-  ROUTER_BINDINGS,
-  HTTP_BINDINGS,
-  Logger,
-  provide(UserService, { useFactory: () => {
-    return new UserService({
-      //host:"http://127.0.0.1:8088"
-      host:"https://transpoint.herokuapp.com"
-    })
-  }}),
-  provide(AuthHttp, { useFactory: () => {
-    return new AuthHttp({
-      tokenName: "jwt",
-      //host:"http://127.0.0.1:8088"
-      host:"https://transpoint.herokuapp.com"
-    })
-  }})
-]);

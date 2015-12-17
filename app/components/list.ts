@@ -1,5 +1,5 @@
-import {Component, View} from "angular2/angular2"
-import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
+import {Component, View} from "angular2/core"
+import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common';
 
 import {Hero} from "../service/hero/hero";
 import {HEROES} from "../service/hero/heroes-mock";

@@ -1,4 +1,4 @@
-import {Injectable, bind} from "angular2/angular2"
+import {Injectable, bind} from "angular2/core"
 import {Http} from "angular2/http"
 import {User} from "../models/user"
 import {status, json} from '../utils/fetch'

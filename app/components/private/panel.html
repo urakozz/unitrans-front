@@ -12,7 +12,7 @@ API Keys Management
 </button>
 
 
-<div class="panel panel-default" *ng-for="#key of keys">
+<div class="panel panel-default" *ngFor="#key of keys">
     <div class="panel-heading">
         <h3 class="panel-title">{{key}}</h3>
     </div>
@@ -28,6 +28,6 @@ API Keys Management
 
     </div>
 </div>
-<div *ng-if="!keys">
+<div *ngIf="!keys">
   No keys
 </div>

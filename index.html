@@ -13,9 +13,11 @@
     <script src="/build/vendor/es6-shim.min.js" async></script>
     <script src="/build/vendor/system.js"></script>
 
-    <script src="/build/vendor/angular2.dev.js" ></script>
-    <script src="/build/vendor/http.dev.js" ></script>
-    <script src="/build/vendor/router.dev.js"></script>
+    <script src="/build/vendor/angular2-polyfills.min.js" ></script>
+    <script src="/build/vendor/angular2.min.js" ></script>
+    <script src="/build/vendor/http.min.js" ></script>
+    <script src="/build/vendor/router.min.js"></script>
+    <script src="/build/vendor/Rx.min.js"></script>
 
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css"/> -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css"/> -->
@@ -31,7 +33,8 @@
         baseURL: '/',
         packages: {'build': {defaultExtension: 'js'}}
       });
-      System.import('build/app/app');
+
+      System.import('build/app/boot').then(null, console.error.bind(console));
     </script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
