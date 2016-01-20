@@ -1,0 +1,92 @@
+<div class="well" style="">
+  <h1>Unitrans</h1>
+
+  <p>Try out translation across multiple translatiors right here</p>
+  <ul class="languages">
+    <div class="btn-group" role="group" aria-label="languages">
+      <button type="button" class="btn btn-default"
+        *ngFor="#lang of languages"
+        (click)=selectLang(lang)
+        [class.btn-material-amber]="lang === selectedLang">{{lang.title}}</button>
+    </div>
+
+  </ul>
+  <div class="row Grid Grid--flexCells" style="margin-top:5rem">
+
+      <div class="col-xs-12 col-md-6 Grid-cell">
+          <div class="width100">
+            <div class="panel">
+              <div class="well well-sm well-material-amber shadow-z-0 margin-bottom-none">
+                Source <span *ngIf="processedData"><b>{{processedData.Source}}</b></span>
+              </div>
+              <div class="panel-body">
+                <form [ngFormModel]="formGroup">
+                  <div class="form-group form-group-material-amber">
+                    <textarea autogrow class="form-control" rows="1" [(ngModel)]="sourceText" ngControl="source" placeholder="Type text here"></textarea>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+      </div>
+    <div class="col-xs-12 col-md-6 Grid-cell">
+      <div *ngIf="sourceText && !processedData" >
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+      </div>
+
+      <div *ngIf="processedData" class="width100">
+        <div class="panel" *ngFor="#item of processedList">
+          <div class="well well-sm well-material-indigo shadow-z-0 margin-bottom-none">
+            <span class="text-white">{{item.Name}} [{{item.Source || "?"}}-{{item.Lang}}] {{item.Time}} ms </span>
+          </div>
+          <div class="panel-body">
+            {{item.Translation}}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <pre *ngIf="processedData" class="width100">{{processedText}}</pre>
+    </div>
+  </div>
+  <p>
+    <span class="btn btn-material-indigo btn-lg" (click)="translateForce()">Translate</span>
+  </p>
+</div>
+
+<div class="row">
+<h1 class="header__padding">Key Features</h1>
+</div>
+<div class="row Grid Grid--flexCells">
+
+<div class="col-xs-12 col-md-4 Grid-cell">
+<div class="panel panel-default width100">
+<div class="panel-heading-material-indigo">Panel heading without title</div>
+<div class="panel-body">
+Basic panel example<p><p>
+ddd</p>
+</div>
+</div>
+</div>
+
+<div class="col-xs-12 col-md-4 Grid-cell">
+<div class="panel panel-default width100">
+<div class="panel-heading-material-indigo">Panel heading without title</div>
+<div class="panel-body">
+Basic panel example
+<p>
+</div>
+</div>
+</div>
+
+<div class="col-xs-12 col-md-4 Grid-cell">
+<div class="panel panel-default width100">
+<div class="panel-heading-material-indigo">Panel heading without title</div>
+<div class="panel-body">
+Basic panel example
+</div>
+</div></div>
+</div>

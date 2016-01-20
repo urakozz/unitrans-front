@@ -1,114 +1,57 @@
 import {Component, View} from "angular2/core"
 import {Control, ControlGroup} from "angular2/common"
+import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
 import {Http, Headers, Request, Response, RequestOptions, RequestMethod} from "angular2/http"
 import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
 
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operator/map';
 
+import {Lang} from '../models/lang';
+import {AutogrowDirective} from '../directives/textarea'
+
 @Component({
     selector: 'start'
 })
 @View({
-    template: `
-          <div class="well" style="">
-            <h1>Unitrans</h1>
-
-            <p>Try out translation across multiple translatiors right here</p>
-            <div class="row Grid Grid--flexCells" style="margin-top:5rem">
-
-                <div class="col-xs-12 col-md-6 Grid-cell">
-                    <form class="width100" [ngFormModel]="formGroup">
-                      <div class="form-group form-group-material-amber">
-                        <textarea class="form-control" rows="1" [(ngModel)]="sourceText" ngControl="source" placeholder="Type text here"></textarea>
-                      </div>
-                    </form>
-                </div>
-              <div class="col-xs-12 col-md-6 Grid-cell">
-                <div *ngIf="sourceText && !processedData" >
-                  <i class="fa fa-circle-o-notch fa-spin"></i>
-                </div>
-
-                <div *ngIf="processedData" class="width100">
-                  <div class="panel">
-                    <div class="well well-sm well-material-amber shadow-z-0 margin-bottom-none">
-                      Source: <b>{{processedData.Source}}</b>
-                    </div>
-                    <div class="panel-body">
-                      {{processedData.Original}}
-                    </div>
-                  </div>
-                  <div class="panel" *ngFor="#item of processedList">
-                    <div class="well well-sm well-material-indigo shadow-z-0 margin-bottom-none">
-                      <span class="text-white">{{item.Name}} [{{item.Source || "?"}}-{{item.Lang}}] {{item.Time}} ms </span>
-                    </div>
-                    <div class="panel-body">
-                      {{item.Translation}}
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                <pre *ngIf="processedData" class="width100">{{processedText}}</pre>
-              </div>
-            </div>
-            <p>
-              <span class="btn btn-material-indigo btn-lg" (click)="translateForce()">Translate</span>
-            </p>
-    </div>
-
-  <div class="row">
-      <h1 class="header__padding">Key Features</h1>
-  </div>
-<div class="row Grid Grid--flexCells">
-
-  <div class="col-xs-12 col-md-4 Grid-cell">
-    <div class="panel panel-default width100">
-      <div class="panel-heading-material-indigo">Panel heading without title</div>
-      <div class="panel-body">
-        Basic panel example<p><p>
-        ddd</p>
-      </div>
-    </div>
-  </div>
-
-<div class="col-xs-12 col-md-4 Grid-cell">
-  <div class="panel panel-default width100">
-  <div class="panel-heading-material-indigo">Panel heading without title</div>
-  <div class="panel-body">
-    Basic panel example
-    <p>
-  </div>
-</div>
-</div>
-
-<div class="col-xs-12 col-md-4 Grid-cell">
-<div class="panel panel-default width100">
-<div class="panel-heading-material-indigo">Panel heading without title</div>
-  <div class="panel-body">
-    Basic panel example
-  </div>
-</div></div>
-</div>
-    `
+    templateUrl: "app/components/start.html",
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, AutogrowDirective]
 })
 export class Start {
-    token: string
-    sourceText: string
-    processedData: any
+    token: string;
+    selectedLang: Lang;
+    languages: Lang[];
+    sourceText: string;
+    processedData: any;
     formGroup: ControlGroup = new ControlGroup({
       source: new Control()
-    })
-    private timeoutId: NodeJS.Timer
+    });
+    private timeoutId: NodeJS.Timer;
 
     constructor(public http: Http) {
       this.token = localStorage.getItem("jwt")
       this.formGroup.valueChanges.subscribe((values) => {
         this.asyncTranslator(values.source)
       });
+      this.languages = [
+        { "code":"en", "title":"English"},
+        { "code":"ru", "title":"Russian"},
+        { "code":"de", "title":"German"}
+      ]
+      this.initLang()
+    }
+
+    private initLang(){
+
+      let code = localStorage.getItem("lang")
+      if (!code) {
+        code = this.languages[0].code
+      }
+      this.languages.forEach((lang:Lang) => {
+        if (lang.code === code) {
+          this.selectLang(lang)
+        }
+      })
     }
 
     get processedText(){
@@ -117,6 +60,13 @@ export class Start {
 
     get processedList(){
       return this.processedData.RawTransData
+    }
+
+    selectLang(lang: Lang) {
+      console.log(lang)
+      this.selectedLang = lang
+      localStorage.setItem("lang", lang.code)
+      this.translateForce()
     }
 
     translateForce(){
@@ -142,7 +92,7 @@ export class Start {
             method: RequestMethod.Post,
             url: "https://transpoint.herokuapp.com/webapi/tr",
             //url: "http://127.0.0.1:8088/webapi/tr",
-            body: JSON.stringify({text:this.sourceText, lang:["ru"]}),
+            body: JSON.stringify({text:this.sourceText, lang:[this.selectedLang.code]}),
             headers: authHeader
           })));
 
