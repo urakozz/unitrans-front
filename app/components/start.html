@@ -2,15 +2,15 @@
   <h1>Unitrans</h1>
 
   <p>Try out translation across multiple translatiors right here</p>
-  <ul class="languages">
+  <div class="languages pull-right">
     <div class="btn-group" role="group" aria-label="languages">
       <button type="button" class="btn btn-default"
         *ngFor="#lang of languages"
         (click)=selectLang(lang)
-        [class.btn-material-amber]="lang === selectedLang">{{lang.title}}</button>
+        [class.btn-material-indigo]="lang === selectedLang">{{lang.title}}</button>
     </div>
+  </div>
 
-  </ul>
   <div class="row Grid Grid--flexCells" style="margin-top:5rem">
 
       <div class="col-xs-12 col-md-6 Grid-cell">
