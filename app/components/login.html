@@ -24,7 +24,7 @@
 
 <!-- Model Driven Forms -->
 <form role="form" [ngFormModel]="form" (ngSubmit)="onSubmitFormModel(form)">
-    <div class="form-group form-group-material-amber" [class.has-error]="!form.controls.username.valid && form.controls.username.dirty">
+    <div *ngIf="true" class="form-group form-group-material-amber" [class.has-error]="!form.controls.username.valid && form.controls.username.dirty">
         <label for="username">Email</label>
         <input type="email" class="form-control" placeholder="Email" [(ngModel)]="model.username" ngControl='username' [disabled]="submitting">
         <div [hidden]="form.controls.username.valid || form.controls.username.pristine" class="alert alert-info">
@@ -42,7 +42,7 @@
           </div>
         </div>
     </div>
-    <div class="form-group form-group-material-amber">
+    <div *ngIf="true" class="form-group form-group-material-amber">
         <label for="password">Password</label>
         <input type="password" class="form-control" placeholder="Password" [(ngModel)]="model.password" ngControl='password' [disabled]="submitting">
         <div [hidden]="form.controls.password.valid || form.controls.password.pristine" class="alert alert-info">
@@ -55,8 +55,8 @@
         </div>
     </div>
     <button type="submit" class="btn btn-material-indigo" [disabled]="!form.valid" [hidden]="submitting">Login</button>
-    <!-- <i class="fa fa-circle-o-notch fa-spin" [class.hidden]="!submitting"></i> -->
 </form>
+<!-- <i class="fa fa-circle-o-notch fa-spin" [class.hidden]="!submitting"></i> -->
 
 <p>
     No account? <a href="javascript:void(0)" (click)="signupLink($event)">Register here</a>

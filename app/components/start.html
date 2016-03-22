@@ -21,7 +21,7 @@
               </div>
               <div class="panel-body">
                 <form [ngFormModel]="formGroup">
-                  <div class="form-group form-group-material-amber">
+                  <div *ngIf="true" class="form-group form-group-material-amber">
                     <textarea autogrow class="form-control" rows="1" [(ngModel)]="sourceText" ngControl="source" placeholder="Type text here"></textarea>
                   </div>
                 </form>
