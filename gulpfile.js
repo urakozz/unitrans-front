@@ -16,7 +16,7 @@ gulp.task('js', function (done) {
         paths.shim + "*.min.js",
         paths.systemjs + "*.js",
         paths.rxjs + "*.min.js",
-        paths.angular + "*.min.js"
+        paths.angular + "*.js"
     ];
     js = js.concat(js.map(function (item) {
         return item + ".map"
