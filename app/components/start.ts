@@ -2,7 +2,7 @@ import {Component, View} from "angular2/core"
 import {Control, ControlGroup} from "angular2/common"
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
 import {Http, Headers, Request, Response, RequestOptions, RequestMethod} from "angular2/http"
-import {TimerWrapper, NodeJS} from 'angular2/src/facade/async'
+import {TimerWrapper} from 'angular2/src/facade/async'
 
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operator/map';
@@ -26,7 +26,7 @@ export class Start {
     formGroup: ControlGroup = new ControlGroup({
       source: new Control()
     });
-    private timeoutId: NodeJS.Timer;
+    private timeoutId: number;
 
     constructor(public http: Http) {
       this.token = localStorage.getItem("jwt")
