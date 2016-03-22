@@ -1,4 +1,4 @@
-import {Injectable, Injector} from 'angular2/core';
+import {Injectable, Inject} from 'angular2/core';
 
 import {Http, HTTP_PROVIDERS, Headers, BaseRequestOptions, Request, Response, RequestOptions, RequestOptionsArgs, RequestMethod} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
@@ -35,12 +35,9 @@ export class AuthConfig {
 export class AuthHttp {
 
   private _config: AuthConfig;
-  http: Http;
 
-  constructor(config?:Object) {
-    this._config = new AuthConfig(config);
-    var injector = Injector.resolveAndCreate([HTTP_PROVIDERS]);
-    this.http = injector.get(Http);
+  constructor(private http: Http, @Inject('API_ROOT') private host: string, @Inject('TOKEN_NAME') token: string) {
+    this._config = new AuthConfig({host:host, tokenName:token});
 
     //var obs = new Rx.Observable()
   }
@@ -53,6 +50,7 @@ export class AuthHttp {
 
     var authHeader = new Headers();
     authHeader.append(this._config.headerName, this._config.headerPrefix + this.getJwt());
+    console.log(authHeader)
     return this.http.request(new Request(new RequestOptions({method: method,
       url: url,
       body: body,

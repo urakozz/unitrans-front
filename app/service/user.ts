@@ -1,4 +1,4 @@
-import {Injectable, bind} from "angular2/core"
+import {Injectable, Inject, bind} from "angular2/core"
 import {Http} from "angular2/http"
 import {User} from "../models/user"
 import {status, json} from '../utils/fetch'
@@ -16,11 +16,7 @@ export class UserService {
     token: string
     username: string
 
-    private host: string
-
-    constructor(config?:any){
-      config = config || {}
-      this.host = config.host || "http://localhost:8088"
+    constructor(@Inject('API_ROOT') private host: string){
       this.onLoad()
     }
 
