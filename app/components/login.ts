@@ -1,9 +1,9 @@
-import {Component, View} from "angular2/core"
+import {Component} from "angular2/core"
 import {FormBuilder, Validators, ControlGroup} from "angular2/common"
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
 import {TimerWrapper} from 'angular2/src/facade/async'
 import {PromiseWrapper} from 'angular2/src/facade/promise'
-import {Router} from 'angular2/router'
+import {Router, ROUTER_DIRECTIVES} from 'angular2/router'
 import {AuthHttp} from '../service/jwt'
 import {Logger} from '../service/logger'
 import {status, json} from '../utils/fetch'
@@ -14,11 +14,9 @@ import {UserService} from "../service/user"
 //let template = require('./list.html');
 
 @Component({
-    selector: 'login'
-})
-@View({
+    selector: 'login',
     templateUrl: "app/components/login.html",
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 export class Login {
 
@@ -92,11 +90,5 @@ export class Login {
 
     // TODO: Remove this when we're done
     // get diagnostic() { return JSON.stringify(this.model); }
-
-
-    signupLink(event) {
-        event.preventDefault();
-        this.router.parent.navigateByUrl('/signup');
-    }
 
 }

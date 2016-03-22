@@ -1,6 +1,6 @@
 /// <reference path="./typings/app.d.ts" />
 import{ FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common"
-import {Component, Injectable, View} from 'angular2/core'
+import {Component, Injectable} from 'angular2/core'
 import {Http} from 'angular2/http'
 import {LocationStrategy} from 'angular2/router'
 import {ROUTER_DIRECTIVES, RouteConfig, RouterOutlet, Router, RouterLink, AsyncRoute, Location} from 'angular2/router'
@@ -24,8 +24,6 @@ import {Panel} from "./components/private/panel"
 // });
 @Component({
     selector: 'unitrans-app',
-})
-@View({
   directives: [CORE_DIRECTIVES,LoggedInRouterOutlet,RouterLink],
   templateUrl:"templates/app_main.html"
 })

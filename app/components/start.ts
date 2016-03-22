@@ -1,4 +1,4 @@
-import {Component, View} from "angular2/core"
+import {Component} from "angular2/core"
 import {Control, ControlGroup} from "angular2/common"
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
 import {Http, Headers, Request, Response, RequestOptions, RequestMethod} from "angular2/http"
@@ -11,9 +11,7 @@ import {Lang} from '../models/lang';
 import {AutogrowDirective} from '../directives/textarea'
 
 @Component({
-    selector: 'start'
-})
-@View({
+    selector: 'start',
     templateUrl: "app/components/start.html",
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, AutogrowDirective]
 })

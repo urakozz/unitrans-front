@@ -1,4 +1,4 @@
-import {Component, View} from "angular2/core"
+import {Component} from "angular2/core"
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
 import {Router} from 'angular2/router'
 import { Observable } from 'rxjs/Observable';
@@ -7,9 +7,7 @@ import {AuthHttp} from '../../service/jwt'
 import {UserService} from "../../service/user"
 
 @Component({
-    selector: 'panel'
-})
-@View({
+    selector: 'panel',
     templateUrl: "app/components/private/panel.html",
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES]
 })

@@ -1,4 +1,4 @@
-import {Component, View} from "angular2/core"
+import {Component} from "angular2/core"
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common';
 
 import {Hero} from "../service/hero/hero";
@@ -7,9 +7,7 @@ import {HEROES} from "../service/hero/heroes-mock";
 //let template = require('./list.html');
 
 @Component({
-  selector: 'list'
-})
-@View({
+  selector: 'list',
   templateUrl:"app/components/list.html",
   directives:[FORM_DIRECTIVES, CORE_DIRECTIVES]
 })

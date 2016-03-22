@@ -3,13 +3,13 @@ import {provide} from 'angular2/core'
 import {AppComponent} from './app'
 import {AuthHttp} from './service/jwt'
 import {UserService} from './service/user'
-import {ROUTER_BINDINGS} from 'angular2/router'
-import {Http, HTTP_PROVIDERS, HTTP_BINDINGS} from 'angular2/http'
+import {ROUTER_PROVIDERS} from 'angular2/router'
+import {Http, HTTP_PROVIDERS} from 'angular2/http'
 
 
 bootstrap(AppComponent, [
-  ROUTER_BINDINGS,
-  HTTP_BINDINGS,
+  ROUTER_PROVIDERS,
+  HTTP_PROVIDERS,
   provide(UserService, { useFactory: () => {
     return new UserService({
       //host:"http://127.0.0.1:8088"
