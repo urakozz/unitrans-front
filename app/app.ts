@@ -17,6 +17,7 @@ import {Login} from "./components/login"
 import {Signup} from "./components/signup"
 
 import {Panel} from "./components/private/panel"
+import {MATERIAL_DIRECTIVES} from "ng2-material/all";
 
 //
 // firebase.child("messages").on("value", function(snapshot) {
@@ -24,7 +25,7 @@ import {Panel} from "./components/private/panel"
 // });
 @Component({
     selector: 'unitrans-app',
-  directives: [CORE_DIRECTIVES,LoggedInRouterOutlet,RouterLink],
+  directives: [CORE_DIRECTIVES,LoggedInRouterOutlet,RouterLink,MATERIAL_DIRECTIVES],
   templateUrl:"templates/app_main.html"
 })
 @RouteConfig([

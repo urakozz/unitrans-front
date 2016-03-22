@@ -5,11 +5,13 @@ import {AuthHttp} from './service/jwt'
 import {UserService} from './service/user'
 import {ROUTER_PROVIDERS} from 'angular2/router'
 import {HTTP_PROVIDERS} from 'angular2/http'
+import {MATERIAL_PROVIDERS} from 'ng2-material/all';
 
 
 bootstrap(AppComponent, [
   ROUTER_PROVIDERS,
   HTTP_PROVIDERS,
+  MATERIAL_PROVIDERS,
   provide('API_ROOT', {useValue: "https://transpoint.herokuapp.com"}),
   provide('TOKEN_NAME', {useValue: "jwt"}),
   provide(UserService, { useClass: UserService}),

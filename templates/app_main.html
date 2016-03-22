@@ -1,4 +1,4 @@
-<div class="navbar navbar-material-amber navbar-fixed-top">
+<!-- <div class="navbar navbar-material-amber navbar-fixed-top">
   <div class="ut-container-navbar ut-container-navbar__shadow">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
@@ -13,19 +13,36 @@
             <li><a href="http://docs.transpoint.apiary.io/#">Documentation</a></li>
         </ul>
 
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right"> -->
 
             <!-- <li><a [router-link]="['./List']">List of heroes</a></li> -->
-            <li *ngIf="!userService.in"><a [routerLink]="['./Login']">Login</a></li>
+            <!-- <li *ngIf="!userService.in"><a [routerLink]="['./Login']">Login</a></li>
             <li *ngIf="!userService.in"><a [routerLink]="['./Signup']">Register</a></li>
             <li *ngIf="userService.in"><a  [routerLink]="['./Panel']">Panel ({{userService.username}})</a></li>
             <li *ngIf="userService.in"><a href="javascript:void(0)" (click)="logout()">Logout</a></li>
         </ul>
     </div>
   </div>
-</div>
-<main>
+</div> -->
+
+<md-content>
+  <div class="md-toolbar-tools ut-header">
+    <div><a class="navbar-brand" [routerLink]="['./Start']">Unitrans.io</a></div>
+    <div><a md-button href="http://docs.transpoint.apiary.io/#" target="_blank">Documentation</a></div>
+    <span flex></span>
+    <ul class="nav navbar-nav">
+      <li *ngIf="!userService.in"><a md-button [routerLink]="['./Login']">Login</a></li>
+      <li *ngIf="!userService.in"><a md-button [routerLink]="['./Signup']">Register</a></li>
+      <li *ngIf="userService.in"><a  md-button [routerLink]="['./Panel']">Panel ({{userService.username}})</a></li>
+      <li *ngIf="userService.in"><a  md-button href="javascript:void(0)" (click)="logout()">Logout</a></li>
+    </ul>
+  </div>
+</md-content>
+<md-content>
+  <router-outlet></router-outlet>
+</md-content>
+<!-- <main>
   <div class="container">
     <router-outlet></router-outlet>
   </div>
-</main>
+</main> -->
