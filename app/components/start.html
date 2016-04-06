@@ -1,92 +1,68 @@
-<div class="well" style="">
+<div layout="column" layout-padding>
   <h1>Unitrans</h1>
 
   <p>Try out translation across multiple translations right here</p>
-  <div class="row">
-    <div class="btn-group pull-right" role="group" aria-label="languages">
-      <button type="button" class="btn btn-default"
+</div>
+
+<section layout="row" layout-align="start center" layout-padding>
+  <div flex="50" flex-xs="100">
+    <span>From:</span>
+    <button md-button disabled="true" class="md-primary">{{processedData && processedData.Source || "Auto"}}</button>
+  </div>
+  <div flex="50" flex-xs="100">
+    <span>Translate to:</span>
+    <!-- <div class="btn-group pull-right" role="group" aria-label="languages"> -->
+      <button md-button
         *ngFor="#lang of languages"
         (click)=selectLang(lang)
         [class.btn-material-indigo]="lang === selectedLang">{{lang.title}}</button>
-    </div>
   </div>
 
-  <div class="row Grid Grid--flexCells" style="margin-top:5rem">
+  <!-- </div> -->
+</section>
 
-      <div class="col-xs-12 col-md-6 Grid-cell">
-          <div class="width100">
-            <div class="panel">
-              <div class="well well-sm well-material-amber shadow-z-0 margin-bottom-none">
-                Source <span *ngIf="processedData"><b>{{processedData.Source}}</b></span>
-              </div>
-              <div class="panel-body">
-                <!-- <form > -->
+<section layout="row">
+
+      <div flex="50" flex-xs="100">
+          <md-card>
+            <!-- <div class="panel"> -->
+              <md-card-header>
+                <md-card-header-text>
+                <p>Source <b *ngIf="processedData">{{processedData.Source}}</b></p>
+                </md-card-header-text>
+              </md-card-header>
+              <md-card-content>
                   <div *ngIf="true" class="form-group form-group-material-amber">
                     <textarea autogrow class="form-control" rows="1" [(ngModel)]="sourceText" #term (keyup)="asyncTranslator(term.value)" placeholder="Type text here"></textarea>
                   </div>
-                <!-- </form> -->
-              </div>
-            </div>
-          </div>
+              </md-card-content>
+            <!-- </div> -->
+          </md-card>
       </div>
-    <div class="col-xs-12 col-md-6 Grid-cell">
-      <div *ngIf="sourceText && !processedData" >
-        <i class="fa fa-circle-o-notch fa-spin"></i>
-      </div>
+    <div flex="50" flex-xs="100">
+        <i *ngIf="sourceText && !processedData"  class="fa fa-circle-o-notch fa-spin"></i>
+
 
       <div *ngIf="processedData" class="width100">
-        <div class="panel" *ngFor="#item of processedList">
-          <div class="well well-sm well-material-indigo shadow-z-0 margin-bottom-none">
-            <span class="text-white">{{item.Name}} [{{item.Source || "?"}}-{{item.Lang}}] {{item.Time}} ms </span>
-          </div>
-          <div class="panel-body">
+        <md-card class="panel" *ngFor="#item of processedList">
+          <md-card-header>
+            <p>{{item.Name}} [{{item.Source || "?"}}-{{item.Lang}}] {{item.Time}} ms </p>
+          </md-card-header>
+          <md-card-content>
+          <!-- <div class="panel-body"> -->
             {{item.Translation}}
-          </div>
-        </div>
+          <!-- </div> -->
+          </md-card-content>
+        </md-card>
 
       </div>
     </div>
-  </div>
+  </section>
   <!-- <div class="row">
     <div class="col-xs-12">
       <pre *ngIf="processedData" class="width100">{{processedText}}</pre>
     </div>
   </div> -->
-  <p>
-    <span class="btn btn-material-indigo btn-lg" (click)="translateForce()">Translate</span>
-  </p>
-</div>
-
-<div class="row">
-<h1 class="header__padding">Key Features</h1>
-</div>
-<div class="row Grid Grid--flexCells">
-
-<div class="col-xs-12 col-md-4 Grid-cell">
-<div class="panel panel-default width100">
-<div class="panel-heading-material-indigo">Panel heading without title</div>
-<div class="panel-body">
-Basic panel example<p><p>
-ddd</p>
-</div>
-</div>
-</div>
-
-<div class="col-xs-12 col-md-4 Grid-cell">
-<div class="panel panel-default width100">
-<div class="panel-heading-material-indigo">Panel heading without title</div>
-<div class="panel-body">
-Basic panel example
-<p>
-</div>
-</div>
-</div>
-
-<div class="col-xs-12 col-md-4 Grid-cell">
-<div class="panel panel-default width100">
-<div class="panel-heading-material-indigo">Panel heading without title</div>
-<div class="panel-body">
-Basic panel example
-</div>
-</div></div>
-</div>
+<section layout="row">
+    <button md-button class="btn-material-indigo btn-lg" (click)="translateForce()">Translate</button>
+</section>

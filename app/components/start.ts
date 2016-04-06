@@ -9,11 +9,12 @@ import {Subject} from 'rxjs/Subject'
 
 import {Lang} from '../models/lang';
 import {AutogrowDirective} from '../directives/textarea'
+import {MATERIAL_DIRECTIVES} from "ng2-material/all";
 
 @Component({
     selector: 'start',
     templateUrl: "app/components/start.html",
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, AutogrowDirective]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, AutogrowDirective,MATERIAL_DIRECTIVES]
 })
 export class Start {
     token: string;
