@@ -4,8 +4,8 @@ import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
 import {Http, Headers, Request, Response, RequestOptions, RequestMethod} from "angular2/http"
 import {TimerWrapper} from 'angular2/src/facade/async'
 
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operator/map';
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject'
 
 import {Lang} from '../models/lang';
 import {AutogrowDirective} from '../directives/textarea'
@@ -21,25 +21,26 @@ export class Start {
     languages: Lang[];
     sourceText: string;
     processedData: any;
-    formGroup: ControlGroup = new ControlGroup({
-      source: new Control()
-    });
-    private timeoutId: number;
+    private _searchTermStream = new Subject<string>();
+    // formGroup: ControlGroup = new ControlGroup({
+    //   source: new Control()
+    // });
 
     constructor(public http: Http) {
       this.token = localStorage.getItem("jwt")
-      this.formGroup.valueChanges.subscribe((values) => {
-        this.asyncTranslator(values.source)
-      });
+      // this.formGroup.valueChanges.subscribe((values) => {
+      //   this.asyncTranslator(values.source)
+      // });
       this.languages = [
         { "code":"en", "title":"English"},
         { "code":"ru", "title":"Russian"},
         { "code":"de", "title":"German"}
       ]
       this.initLang()
+      this.initStream()
     }
 
-    private initLang(){
+    private initLang(): void{
 
       let code = localStorage.getItem("lang")
       if (!code) {
@@ -52,6 +53,14 @@ export class Start {
       })
     }
 
+    private initStream(): void{
+      this._searchTermStream
+        .debounceTime(200)
+        .distinctUntilChanged()
+        .switchMap((term:string) => this.doRequest(term))
+        .subscribe(data => this.processedData = data)
+    }
+
     get processedText(){
       return JSON.stringify(this.processedData, null, 2)
     }
@@ -60,52 +69,28 @@ export class Start {
       return this.processedData.RawTransData
     }
 
-    selectLang(lang: Lang) {
-      console.log(lang)
+    selectLang(lang: Lang): void {
       this.selectedLang = lang
       localStorage.setItem("lang", lang.code)
       this.translateForce()
     }
 
-    translateForce(){
-      this.asyncTranslator(this.sourceText)
+    translateForce(): void{
+      this.doRequest(this.sourceText).subscribe(data => this.processedData = data)
     }
 
-    private asyncTranslator(value: string) {
-      if (!value){
-        this.processedData = undefined
-        return
-      }
-        if (this.timeoutId) {
-          TimerWrapper.clearTimeout(this.timeoutId)
-        }
-        // this.timeoutId = TimerWrapper.setTimeout(() => {
-        //   console.log("tick", value)
-        //   console.log("this = ", this)
-        // }, 250);
-        this.timeoutId = TimerWrapper.setTimeout(() => {
-          var authHeader = new Headers();
-          // authHeader.append("X-Auth-Key", "12578502236444961733.a18f3ef1");
-          var request = this.http.request(new Request(new RequestOptions({
-            method: RequestMethod.Post,
-            url: "https://transpoint.herokuapp.com/webapi/tr",
-            //url: "http://127.0.0.1:8088/webapi/tr",
-            body: JSON.stringify({text:this.sourceText, lang:[this.selectedLang.code]}),
-            headers: authHeader
-          })));
+    asyncTranslator(term:string): void {
+      this._searchTermStream.next(term)
+    }
 
-          request
-            .subscribe(
-              (data) => {
-                data = data.json()
-                console.log("success", data)
-                if (this.sourceText) {
-                  this.processedData = data
-                }
-              },
-              (err) => { console.log("error", err)},
-              () => {console.log("done with request")}
-          )
-        }, 200);
+    private doRequest(value: string): Observable<Object>{
+      let authHeader = new Headers();
+      return this.http.request(new Request(new RequestOptions({
+        method: RequestMethod.Post,
+        url: "https://transpoint.herokuapp.com/webapi/tr",
+        //url: "http://127.0.0.1:8088/webapi/tr",
+        body: JSON.stringify({text:value, lang:[this.selectedLang.code]}),
+        headers: authHeader
+      }))).map(req => <Object>req.json());
     }
 }

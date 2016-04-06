@@ -1,7 +1,7 @@
 <div class="well" style="">
   <h1>Unitrans</h1>
 
-  <p>Try out translation across multiple translatiors right here</p>
+  <p>Try out translation across multiple translations right here</p>
   <div class="row">
     <div class="btn-group pull-right" role="group" aria-label="languages">
       <button type="button" class="btn btn-default"
@@ -20,11 +20,11 @@
                 Source <span *ngIf="processedData"><b>{{processedData.Source}}</b></span>
               </div>
               <div class="panel-body">
-                <form [ngFormModel]="formGroup">
+                <!-- <form > -->
                   <div *ngIf="true" class="form-group form-group-material-amber">
-                    <textarea autogrow class="form-control" rows="1" [(ngModel)]="sourceText" ngControl="source" placeholder="Type text here"></textarea>
+                    <textarea autogrow class="form-control" rows="1" [(ngModel)]="sourceText" #term (keyup)="asyncTranslator(term.value)" placeholder="Type text here"></textarea>
                   </div>
-                </form>
+                <!-- </form> -->
               </div>
             </div>
           </div>

@@ -1,3 +1,4 @@
+/// <reference path="../typings/main.d.ts" />
 import {bootstrap}    from 'angular2/platform/browser'
 import {provide} from 'angular2/core'
 import {AppComponent} from './app'
@@ -6,6 +7,7 @@ import {UserService} from './service/user'
 import {ROUTER_PROVIDERS} from 'angular2/router'
 import {HTTP_PROVIDERS} from 'angular2/http'
 import {MATERIAL_PROVIDERS} from 'ng2-material/all';
+import 'rxjs/Rx';
 
 
 bootstrap(AppComponent, [
