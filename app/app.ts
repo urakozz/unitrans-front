@@ -1,4 +1,4 @@
-/// <reference path="./typings/app.d.ts" />
+/// <reference path="../typings/main.d.ts" />
 import{ FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common"
 import {Component, Injectable} from 'angular2/core'
 import {Http} from 'angular2/http'

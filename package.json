@@ -23,7 +23,7 @@
     "typescript": "^1.6.2"
   },
   "scripts": {
-    "tsc": "tsc -p .",
-    "start": "tsc -p . && ./node_modules/.bin/gulp && live-server --entry-file=index.html"
+    "tsc": "tsc",
+    "start": "tsc  && ./node_modules/.bin/gulp && live-server --entry-file=index.html"
   }
 }

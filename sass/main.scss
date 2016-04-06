@@ -17,16 +17,21 @@ a, a:hover, a:focus {
 .hidden {
   display: none;
 }
+/* fix ng2-material*/
+html, body {
+  height: auto;
+  position: static;
+}
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
-  //margin-top: 60px;
 }
+
 html {
   position: relative;
   min-height: 100%;
 }
-
 .footer {
   position: absolute;
   bottom: 0;
