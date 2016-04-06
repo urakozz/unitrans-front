@@ -57,8 +57,19 @@ export class Start {
       this._searchTermStream
         .debounceTime(200)
         .distinctUntilChanged()
-        .switchMap((term:string) => this.doRequest(term))
-        .subscribe(data => this.processedData = data)
+        .switchMap((term:string) => {
+          if(!term){
+            this.processedData = undefined
+            return Observable.empty()
+          }
+          return this.doRequest(term)
+        })
+        .subscribe(data => {
+          console.log("subs",data)
+          this.processedData = data
+        }, err =>{
+          console.error("translation stream error:" , err)
+        })
     }
 
     get processedText(){
@@ -75,15 +86,15 @@ export class Start {
       this.translateForce()
     }
 
-    translateForce(): void{
+    translateForce(): void {
+      if (!this.sourceText){
+        this.processedData = undefined
+        return
+      }
       this.doRequest(this.sourceText).subscribe(data => this.processedData = data)
     }
 
     asyncTranslator(term:string): void {
-      if (term.length === 0){
-        this.processedData = undefined
-        return
-      }
       this._searchTermStream.next(term)
     }
 
