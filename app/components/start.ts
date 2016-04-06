@@ -80,6 +80,10 @@ export class Start {
     }
 
     asyncTranslator(term:string): void {
+      if (term.length === 0){
+        this.processedData = undefined
+        return
+      }
       this._searchTermStream.next(term)
     }
 
