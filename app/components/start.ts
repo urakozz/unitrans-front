@@ -59,6 +59,7 @@ export class Start {
         .debounceTime(200)
         .distinctUntilChanged()
         .switchMap((term:string) => {
+          term = term.trim()
           if(!term){
             this.processedData = undefined
             return Observable.empty()

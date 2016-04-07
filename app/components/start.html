@@ -40,10 +40,10 @@
           </md-card>
       </div>
     <div flex="100" flex-gt-sm="50">
-        <i *ngIf="sourceText && !processedData"  class="fa fa-circle-o-notch fa-spin"></i>
-
-
-      <div *ngIf="processedData" class="width100">
+      <div>
+        <i *ngIf="sourceText && !processedData" class="fa fa-circle-o-notch fa-spin"></i>
+      </div>
+      <div *ngIf="processedData">
         <md-card class="panel" *ngFor="#item of processedList">
           <md-card-header>
             <p>{{item.Name}} [{{item.Source || "?"}}-{{item.Lang}}] {{item.Time}} ms </p>

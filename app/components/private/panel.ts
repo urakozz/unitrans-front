@@ -26,7 +26,10 @@ export class Panel {
             .subscribe(res => {
               console.log(res.json())
                 this.keys = res.json().keys
-            });
+              }, (err) => {
+                this.userService.logout()
+                this.router.parent.navigate(['Start']);
+              });
     }
 
     add(){

@@ -27,8 +27,8 @@
 
 <md-content>
   <div class="md-toolbar-tools ut-header">
-    <div><a class="navbar-brand" [routerLink]="['./Start']">Unitrans.io</a></div>
-    <div><a md-button href="http://docs.transpoint.apiary.io/#" target="_blank">Documentation</a></div>
+    <div hide-xs><a class="navbar-brand" [routerLink]="['./Start']">Unitrans.io</a></div>
+    <div hide-xs><a md-button href="http://docs.transpoint.apiary.io/#" target="_blank">Documentation</a></div>
     <span flex></span>
     <button md-button [routerLink]="['./Login']" *ngIf="!userService.in">Login</button>
     <button md-button [routerLink]="['./Signup']" *ngIf="!userService.in">Register</button>
