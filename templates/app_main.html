@@ -30,12 +30,10 @@
     <div><a class="navbar-brand" [routerLink]="['./Start']">Unitrans.io</a></div>
     <div><a md-button href="http://docs.transpoint.apiary.io/#" target="_blank">Documentation</a></div>
     <span flex></span>
-    <ul class="nav navbar-nav">
-      <li *ngIf="!userService.in"><a md-button [routerLink]="['./Login']">Login</a></li>
-      <li *ngIf="!userService.in"><a md-button [routerLink]="['./Signup']">Register</a></li>
-      <li *ngIf="userService.in"><a  md-button [routerLink]="['./Panel']">Panel ({{userService.username}})</a></li>
-      <li *ngIf="userService.in"><a  md-button href="javascript:void(0)" (click)="logout()">Logout</a></li>
-    </ul>
+    <button md-button [routerLink]="['./Login']" *ngIf="!userService.in">Login</button>
+    <button md-button [routerLink]="['./Signup']" *ngIf="!userService.in">Register</button>
+    <button md-button [routerLink]="['./Panel']" *ngIf="userService.in">Panel ({{userService.username}})</button>
+    <button md-button href="javascript:void(0)" (click)="logout()" *ngIf="userService.in">Logout</button>
   </div>
 </md-content>
 <md-content>

@@ -1,16 +1,16 @@
 <div layout="column" layout-padding>
   <h1>Unitrans</h1>
 
-  <p>Try out translation across multiple translations right here</p>
+  <!-- <p>Try out translation across multiple translations right here</p> -->
 </div>
 
-<section layout="row" layout-align="start center" layout-padding>
-  <div flex="50" flex-xs="100">
-    <span>From:</span>
+<section layout="row" layout-align="start center" layout-wrap>
+  <div flex="100" flex-gt-sm="50" hide-xs>
+    <!-- <span>From:</span> -->
     <button md-button disabled="true" class="md-primary">{{processedData && processedData.Source || "Auto"}}</button>
   </div>
-  <div flex="50" flex-xs="100">
-    <span>Translate to:</span>
+  <div flex="100" flex-gt-sm="50">
+    <!-- <span>Translate to:</span> -->
     <!-- <div class="btn-group pull-right" role="group" aria-label="languages"> -->
       <button md-button
         *ngFor="#lang of languages"
@@ -21,9 +21,9 @@
   <!-- </div> -->
 </section>
 
-<section layout="row">
+<section layout="row" layout-wrap>
 
-      <div flex="50" flex-xs="100">
+      <div flex="100" flex-gt-sm="50">
           <md-card>
             <!-- <div class="panel"> -->
               <md-card-header>
@@ -39,7 +39,7 @@
             <!-- </div> -->
           </md-card>
       </div>
-    <div flex="50" flex-xs="100">
+    <div flex="100" flex-gt-sm="50">
         <i *ngIf="sourceText && !processedData"  class="fa fa-circle-o-notch fa-spin"></i>
 
 
