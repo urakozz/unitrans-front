@@ -40,6 +40,7 @@ import {MATERIAL_DIRECTIVES} from "ng2-material/all";
   // })
 ])
 export class AppComponent {
+    showMenu = false;
 
     constructor(public userService: UserService, public router: Router) {
       console.log("app user in", userService.in)

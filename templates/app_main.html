@@ -25,17 +25,25 @@
   </div>
 </div> -->
 
-<md-content>
-  <div class="md-toolbar-tools ut-header">
-    <div hide-xs><a class="navbar-brand" [routerLink]="['./Start']">Unitrans.io</a></div>
-    <div hide-xs><a md-button href="http://docs.transpoint.apiary.io/#" target="_blank">Documentation</a></div>
-    <span flex></span>
-    <button md-button [routerLink]="['./Login']" *ngIf="!userService.in">Login</button>
-    <button md-button [routerLink]="['./Signup']" *ngIf="!userService.in">Register</button>
-    <button md-button [routerLink]="['./Panel']" *ngIf="userService.in">Panel ({{userService.username}})</button>
-    <button md-button href="javascript:void(0)" (click)="logout()" *ngIf="userService.in">Logout</button>
-  </div>
-</md-content>
+<md-toolbar class="md-toolbar-tools ut-header">
+  <button md-button class="md-icon-button" aria-label="Settings" (click)="showMenu = !showMenu">
+    <i md-icon>menu</i>
+  </button>
+  <button md-button [routerLink]="['./Start']">Unitrans.io</button>
+  <a md-button hide-xs href="http://docs.transpoint.apiary.io/#" target="_blank">Documentation</a>
+  <span flex></span>
+  <button md-button hide-xs [routerLink]="['./Login']" *ngIf="!userService.in">Login</button>
+  <button md-button hide-xs [routerLink]="['./Signup']" *ngIf="!userService.in">Register</button>
+  <button md-button hide-xs [routerLink]="['./Panel']" *ngIf="userService.in">Panel ({{userService.username}})</button>
+  <button md-button hide-xs (click)="logout()" *ngIf="userService.in">Logout</button>
+</md-toolbar>
+<section layout="column" *ngIf="showMenu">
+  <button md-button [routerLink]="['./Login']" *ngIf="!userService.in">Login</button>
+  <button md-button [routerLink]="['./Signup']" *ngIf="!userService.in">Register</button>
+  <button md-button [routerLink]="['./Panel']" *ngIf="userService.in">Panel ({{userService.username}})</button>
+  <button md-button (click)="logout()" *ngIf="userService.in">Logout</button>
+</section>
+
 <md-content>
   <router-outlet></router-outlet>
 </md-content>
