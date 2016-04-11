@@ -10,13 +10,17 @@ import {status, json} from '../utils/fetch'
 import {Start} from "../components/start"
 import {User} from "../models/user"
 import {UserService} from "../service/user"
+import {
+  MdPatternValidator,
+  MATERIAL_DIRECTIVES
+} from "ng2-material/all";
 
 //let template = require('./list.html');
 
 @Component({
     selector: 'signup',
     templateUrl: "app/components/signup.html",
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, MATERIAL_DIRECTIVES]
 })
 export class Signup {
 
@@ -30,15 +34,13 @@ export class Signup {
 
     constructor(public router: Router, public builder: FormBuilder, public userService: UserService) {
         this.reset()
-        function emailValidator(control) {
-            if (!control.value.match(/^[a-zA-Z0-9\_\.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+$/)) {
-                return { invalidEmail: true };
-            }
-        }
         this.form = builder.group({
             username: [
               "",
-              Validators.compose([Validators.required, emailValidator]),
+              Validators.compose([
+                Validators.required,
+                MdPatternValidator.inline('^[a-zA-Z0-9\_\.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+$')
+              ]),
               Validators.composeAsync([
                  asyncValidator.bind(this)
                ])],

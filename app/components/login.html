@@ -1,5 +1,6 @@
+<section layout-padding>
 <h1>Login to your account</h1>
-<br><br>
+</section>
 <!-- {{diagnostic}} -->
 <!-- Template-driven form -->
 <!-- http://blog.jhades.org/introduction-to-angular-2-forms-template-driven-vs-model-driven/ -->
@@ -23,41 +24,55 @@
 </form> -->
 
 <!-- Model Driven Forms -->
-<form role="form" [ngFormModel]="form" (ngSubmit)="onSubmitFormModel(form)">
-    <div *ngIf="true" class="form-group form-group-material-amber" [class.has-error]="!form.controls.username.valid && form.controls.username.dirty">
-        <label for="username">Email</label>
-        <input type="email" class="form-control" placeholder="Email" [(ngModel)]="model.username" ngControl='username' [disabled]="submitting">
-        <div [hidden]="form.controls.username.valid || form.controls.username.pristine" class="alert alert-info">
-          <div *ngIf="form.controls.username.hasError('required')">
-            Email is required
-          </div>
-          <div *ngIf="form.controls.username.hasError('invalidEmail')">
-            Email is invalid
-          </div>
-          <div *ngIf="form.controls.username.hasError('exists')">
-            User not exists
-          </div>
-          <div *ngIf="form.controls.username.pending">
-            <i class="fa fa-circle-o-notch fa-spin"></i>
-          </div>
-        </div>
-    </div>
-    <div *ngIf="true" class="form-group form-group-material-amber">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" placeholder="Password" [(ngModel)]="model.password" ngControl='password' [disabled]="submitting">
-        <div [hidden]="form.controls.password.valid || form.controls.password.pristine" class="alert alert-info">
-          <div *ngIf="form.controls.password.hasError('required')">
-            Password is required
-          </div>
-          <div *ngIf="form.controls.password.hasError('invalid')">
-            Pasword is invalid
-          </div>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-material-indigo" [disabled]="!form.valid" [hidden]="submitting">Login</button>
-</form>
-<!-- <i class="fa fa-circle-o-notch fa-spin" [class.hidden]="!submitting"></i> -->
 
-<p>
-    No account? <a href="javascript:void(0)" [routerLink]="['Login']">Register here</a>
-</p>
+<form role="form" [ngFormModel]="form" (ngSubmit)="onSubmitFormModel(form)">
+  <md-input-container class="md-block" layout-padding>
+     <label for="username">Email</label>
+     <input md-input type="email" ngControl="username" id="username" [(value)]="model.username" [disabled]="submitting">
+     <!-- <div md-messages="username" role="alert">
+       <div md-message="required">This is required</div>
+       <div md-message="mdPattern">Email is invalid</div>
+       <div md-message="exists">Email not exists</div>
+     </div> -->
+     <!-- @todo -->
+     <div [hidden]="form.controls.username.valid || form.controls.username.pristine">
+       <div *ngIf="form.controls.username.hasError('required')">
+         Email is required
+       </div>
+       <div *ngIf="form.controls.username.hasError('mdPattern')">
+         Email is invalid
+       </div>
+       <div *ngIf="form.controls.username.hasError('exists')">
+         User not exists
+       </div>
+       <div *ngIf="form.controls.username.pending">
+         <i class="fa fa-circle-o-notch fa-spin"></i>
+       </div>
+     </div>
+  </md-input-container>
+  <md-input-container class="md-block" layout-padding>
+      <label for="password">Password</label>
+      <input md-input id="password" type="password" [(value)]="model.password" ngControl='password' [disabled]="submitting">
+      <div [hidden]="form.controls.password.valid || form.controls.password.pristine">
+        <div *ngIf="form.controls.password.hasError('required')">
+          Password is required
+        </div>
+        <div *ngIf="form.controls.password.hasError('invalid')">
+          Pasword is invalid
+        </div>
+      </div>
+      <div md-messages="password" role="alert">
+        <div md-message="required">This is required</div>
+        <div md-message="invalid">Password is invalid</div>
+      </div>
+    </md-input-container>
+    <button md-button md-raised-button class="md-raised md-primary" type="submit" [disabled]="!form.valid" [hidden]="submitting">Login</button>
+</form>
+<i class="fa fa-circle-o-notch fa-spin" *ngIf="submitting"></i>
+
+
+<section layout-padding>
+  <p>
+      No account? <a href="javascript:void(0)" [routerLink]="['Login']">Register here</a>
+  </p>
+</section>

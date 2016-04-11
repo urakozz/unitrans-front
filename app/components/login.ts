@@ -11,12 +11,17 @@ import {Start} from "../components/start"
 import {User} from "../models/user"
 import {UserService} from "../service/user"
 
+import {
+  MdPatternValidator,
+  MATERIAL_DIRECTIVES
+} from "ng2-material/all";
+
 //let template = require('./list.html');
 
 @Component({
     selector: 'login',
     templateUrl: "app/components/login.html",
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, MATERIAL_DIRECTIVES]
 })
 export class Login {
 
