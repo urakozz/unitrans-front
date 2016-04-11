@@ -5,11 +5,12 @@ import { Observable } from 'rxjs/Observable';
 
 import {AuthHttp} from '../../service/jwt'
 import {UserService} from "../../service/user"
+import {MATERIAL_DIRECTIVES} from "ng2-material/all";
 
 @Component({
     selector: 'panel',
     templateUrl: "app/components/private/panel.html",
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, MATERIAL_DIRECTIVES]
 })
 export class Panel {
 

@@ -1,33 +1,34 @@
+<section layout-padding>
 <h1>
 API Keys Management
 </h1>
+</section>
 
 <p>
   <a href="javascript:void(0)" (click)="test($event)">Test</a>
 </p>
 
-<button class="btn btn-material-indigo" (click)="add()">
+<button md-button md-raised-button class="md-raised md-primary" (click)="add()">
     <span class="glyphicon glyphicon-plus"
           aria-hidden="true"></span> Generate new key pair
 </button>
 
+<md-list>
+  <md-subheader class="md-no-sticky" *ngIf="keys">Your keys:</md-subheader>
+  <md-subheader class="md-no-sticky" *ngIf="!keys">Keys list is empty</md-subheader>
 
-<div class="panel panel-default" *ngFor="#key of keys">
-    <div class="panel-heading">
-        <h3 class="panel-title">{{key}}</h3>
-    </div>
-    <div class="panel-body">
+  <md-list-item class="md-3-line" *ngFor="#key of keys">
+    <div class="md-list-item-text" layout="column">
+      <section layout-padding>
         <pre>X-Auth-Key: {{key}}</pre>
         <pre>X-Auth-Secret: {{key}}</pre>
-        <form>
-            <input type="hidden" value="{{key}}" #keyvalue >
-            <button class="btn btn-warning" (click)="delete($event, keyvalue.value)">
-            <span class="glyphicon glyphicon-trash"
-                  aria-hidden="true"></span> Delete key</button>
-        </form>
+      </section>
+        <button md-button md-raised-button class="md-raised md-warn"  (click)="delete($event, key)">
+          <span class="glyphicon glyphicon-trash"
+              aria-hidden="true"></span> Delete key
+        </button>
 
     </div>
-</div>
-<div *ngIf="!keys">
-  No keys
-</div>
+    <md-divider></md-divider>
+</md-list-item>
+</md-list>
