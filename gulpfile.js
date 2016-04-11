@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var webpack = require('webpack-stream');
 
 var target = {
     js: "./build/vendor",
@@ -36,6 +37,12 @@ gulp.task('js', function (done) {
         .pipe(gulp.dest(target.js))
         .on('end', done);
 
+})
+
+gulp.task('webpack', function(done){
+  return gulp.src('src/entry.js')
+    .pipe(webpack(require('./webpack.config.js')))
+    .pipe(gulp.dest('dist/'));
 })
 
 gulp.task('default', ['js', 'sass']);

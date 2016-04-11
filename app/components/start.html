@@ -32,9 +32,9 @@
                 </md-card-header-text>
               </md-card-header> -->
               <md-card-content>
-                  <div *ngIf="true" class="form-group form-group-material-amber">
-                    <textarea autogrow class="form-control" rows="1" [(ngModel)]="sourceText" #term (keyup)="asyncTranslator(term.value)" placeholder="Source"></textarea>
-                  </div>
+                  <md-input-container class="md-block">
+                    <textarea md-input autogrow rows="1" [(ngModel)]="sourceText" #term (keyup)="asyncTranslator(term.value)" placeholder="Source"></textarea>
+                  </md-input-container>
               </md-card-content>
             <!-- </div> -->
           </md-card>
@@ -64,5 +64,5 @@
     </div>
   </div> -->
 <section layout="row">
-    <button md-button class="btn-material-indigo btn-lg" (click)="translateForce()">Translate</button>
+    <button md-button md-raised-button class="md-raised md-primary" (click)="translateForce()">Translate</button>
 </section>
