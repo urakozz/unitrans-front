@@ -27,7 +27,7 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material.min.css"> -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"> -->
 
     <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,400italic,700" rel="stylesheet" type="text/css"> -->
 
@@ -66,10 +66,10 @@
     </style>
   </head>
   <body>
-    <unitrans-app>Loading... <i class="fa fa-circle-o-notch fa-spin"></i></unitrans-app>
+    <unitrans-app><span id="initloading">Loading</span></unitrans-app>
     <footer class="footer">
-      <div class="container text-center">
-          <p class="text-muted">Copyright &copy; Unitrans.io 2016</p>
+      <div layout="row" layout-align="center center">
+          <p class="">Copyright &copy; Unitrans.io 2016</p>
       </div>
     </footer>
   </body>
@@ -101,6 +101,13 @@
               d.addEventListener("DOMContentLoaded", f, false);
           } else { f(); }
       })(document, window, "yandex_metrika_callbacks");
+
+      var el = document.getElementById('initloading'),
+          i = 0,
+          initLoadAnimation = setInterval(function() {
+            i = ++i % 4;
+            el.innerHTML = 'Loading' + Array(i + 1).join('.');
+      }, 600);
   </script>
   <noscript><div><img src="https://mc.yandex.ru/watch/36681270" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </html>

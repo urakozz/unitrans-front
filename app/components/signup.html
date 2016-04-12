@@ -18,9 +18,7 @@
           <div *ngIf="form.controls.username.hasError('exists')">
             User exists
           </div>
-          <div *ngIf="form.controls.username.pending">
-            <i class="fa fa-circle-o-notch fa-spin"></i>
-          </div>
+          <md-progress-linear *ngIf="form.controls.username.pending" mode="indeterminate"></md-progress-linear>
         </div>
     </md-input-container>
     <md-input-container class="md-block" layout-padding>
@@ -30,8 +28,9 @@
           Something is wrong
         </div>
     </md-input-container>
-    <button md-button md-raised-button class="md-raised md-primary" type="submit" [disabled]="!form.valid" [hidden]="submitting">Signup</button>
-    <i class="fa fa-circle-o-notch fa-spin" *ngIf="submitting"></i>
+    <button md-raised-button class="md-raised md-primary" type="submit" [disabled]="!form.valid" [hidden]="submitting">Signup</button>
+    <md-progress-linear *ngIf="submitting" mode="indeterminate"></md-progress-linear>
+
 </form>
 
 <section layout-padding>

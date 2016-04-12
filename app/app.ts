@@ -43,6 +43,7 @@ export class AppComponent {
     showMenu = false;
 
     constructor(public userService: UserService, public router: Router) {
+      this._clearInitLoadAnimation()
       console.log("app user in", userService.in)
       window.fetch(userService.getHost()).then(res => console.log(res)).catch(()=>{console.log("^^^ Do not worry, I'm weared")})
     }
@@ -50,6 +51,14 @@ export class AppComponent {
     logout(){
       this.userService.logout()
       this.router.navigate(["Start"])
+    }
+
+    _clearInitLoadAnimation(){
+      let w = <any>window
+      if(w.initLoadAnimation){
+        clearInterval(w.initLoadAnimation)
+        w.initLoadAnimation = undefined
+      }
     }
 
 }

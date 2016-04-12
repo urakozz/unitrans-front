@@ -35,15 +35,14 @@ export class Login {
 
     constructor(public router: Router, public builder: FormBuilder, public userService : UserService) {
         this.reset()
-        function emailValidator(control) {
-            if (!control.value.match(/^[a-zA-Z0-9\_\.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+$/)) {
-                return { invalidEmail: true };
-            }
-        }
+
         this.form = builder.group({
             username: [
               "",
-              Validators.compose([Validators.required, emailValidator]),
+              Validators.compose([
+                Validators.required,
+                MdPatternValidator.inline('^[a-zA-Z0-9\_\.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+$')
+              ]),
               Validators.composeAsync([
                 asyncValidator.bind(this)
               ])
