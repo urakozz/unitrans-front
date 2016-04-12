@@ -18,6 +18,8 @@
   },
   "devDependencies": {
     "awesome-typescript-loader": "^0.17.0-rc.5",
+    "webpack-md5-hash": "0.0.5",
+    "html-webpack-plugin": "^2.15.0",
     "gulp": "^3.9.0",
     "gulp-sass": "^2.2.0",
     "live-server": "^0.8.2",

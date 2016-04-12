@@ -8,7 +8,7 @@
   ],
   "rewrites": [{
     "source": "**",
-    "destination": "/index.html"
+    "destination": "/build/webpack/index.html"
   }],
   "headers": [{
     "source" : "**/app/**/*.@(js|map)",
@@ -22,6 +22,13 @@
     "headers" : [ {
       "key" : "Cache-Control",
       "value" : "max-age=7200"
+    }]
+  },
+  {
+    "source" : "**/build/**/*.@(js)",
+    "headers" : [ {
+      "key" : "Cache-Control",
+      "value" : "max-age=128000"
     }]
   }]
 }

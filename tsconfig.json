@@ -24,8 +24,13 @@
     "typings/main.d.ts"
   ],
   "filesGlob": [
-    "**/*.ts",
-    "!node_modules/**/*"
+    "./app/**/*.ts",
+     "!./node_modules/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "typings/main.d.ts",
+    "typings/main"
   ],
   "files": [
     "app/app.ts",
@@ -46,10 +51,7 @@
     "app/service/logger.ts",
     "app/service/user.ts",
     "app/utils/fetch.ts",
-    "app/utils/routerOutlet.ts",
-    "typings/browser.d.ts",
-    "typings/browser/ambient/es6-shim/index.d.ts",
-    "typings/browser/ambient/whatwg-fetch/index.d.ts"
+    "app/utils/routerOutlet.ts"
   ],
   "atom": {
     "rewriteTsconfig": true
