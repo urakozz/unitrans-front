@@ -45,7 +45,6 @@
     "app/service/jwt.ts",
     "app/service/logger.ts",
     "app/service/user.ts",
-    "app/typings/app.d.ts",
     "app/utils/fetch.ts",
     "app/utils/routerOutlet.ts",
     "typings/browser.d.ts",
