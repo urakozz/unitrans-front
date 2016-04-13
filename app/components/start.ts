@@ -79,7 +79,16 @@ export class Start {
     }
 
     get processedList(){
-      return this.processedData.RawTransData
+      if (!this.processedData.RawTransData[this.selectedLang.code]){
+        return []
+      }
+      let list = []
+      let translations = this.processedData.RawTransData[this.selectedLang.code]
+      Object.keys(translations).forEach(k => {
+        list.push(translations[k])
+      })
+      console.log(list)
+      return list
     }
 
     selectLang(lang: Lang): void {

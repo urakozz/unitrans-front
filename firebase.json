@@ -8,7 +8,7 @@
   ],
   "rewrites": [{
     "source": "**",
-    "destination": "/build/webpack/index.html"
+    "destination": "/index.html"
   }],
   "headers": [{
     "source" : "**/app/**/*.@(js|map)",

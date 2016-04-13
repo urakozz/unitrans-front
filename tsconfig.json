@@ -16,7 +16,7 @@
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true
   },
-  "compileOnSave": true,
+  "compileOnSave": false,
   "exclude": [
     "node_modules/",
     "build",
@@ -26,11 +26,6 @@
   "filesGlob": [
     "./app/**/*.ts",
      "!./node_modules/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "typings/main.d.ts",
-    "typings/main"
   ],
   "files": [
     "app/app.ts",
