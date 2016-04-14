@@ -85,7 +85,11 @@ export class Start {
       let list = []
       let translations = this.processedData.RawTransData[this.selectedLang.code]
       Object.keys(translations).forEach(k => {
-        list.push(translations[k])
+        if (k == "unitrans") {
+          list.unshift(translations[k])
+        }else{
+          list.push(translations[k])
+        }
       })
       return list
     }
