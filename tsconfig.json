@@ -25,28 +25,28 @@
   ],
   "filesGlob": [
     "./app/**/*.ts",
-     "!./node_modules/**/*.ts"
+    "!./node_modules/**/*.ts"
   ],
   "files": [
-    "app/app.ts",
-    "app/boot.ts",
-    "app/components/list.ts",
-    "app/components/login.ts",
-    "app/components/private/panel.ts",
-    "app/components/signup.ts",
-    "app/components/start.ts",
-    "app/directives/textarea.ts",
-    "app/models/lang.ts",
-    "app/models/user.ts",
-    "app/service/firebase.ts",
-    "app/service/hero-service.ts",
-    "app/service/hero/hero.ts",
-    "app/service/hero/heroes-mock.ts",
-    "app/service/jwt.ts",
-    "app/service/logger.ts",
-    "app/service/user.ts",
-    "app/utils/fetch.ts",
-    "app/utils/routerOutlet.ts"
+    "./app/app.ts",
+    "./app/boot.ts",
+    "./app/components/list.ts",
+    "./app/components/login.ts",
+    "./app/components/private/panel.ts",
+    "./app/components/signup.ts",
+    "./app/components/start.ts",
+    "./app/directives/textarea.ts",
+    "./app/models/lang.ts",
+    "./app/models/user.ts",
+    "./app/service/firebase.ts",
+    "./app/service/hero-service.ts",
+    "./app/service/hero/hero.ts",
+    "./app/service/hero/heroes-mock.ts",
+    "./app/service/jwt.ts",
+    "./app/service/logger.ts",
+    "./app/service/user.ts",
+    "./app/utils/fetch.ts",
+    "./app/utils/routerOutlet.ts"
   ],
   "atom": {
     "rewriteTsconfig": true

@@ -87,7 +87,6 @@ export class Start {
       Object.keys(translations).forEach(k => {
         list.push(translations[k])
       })
-      console.log(list)
       return list
     }
 
