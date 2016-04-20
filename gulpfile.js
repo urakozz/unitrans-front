@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var replace = require('gulp-replace');
 var webpack = require('webpack-stream');
 
 var target = {
@@ -15,11 +16,15 @@ var paths = {
     'angular': './node_modules/angular2/bundles/'
 };
 
-gulp.task('sass', function () {
+gulp.task('sass', ["fonts"], function () {
   return gulp.src('./sass/main.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest(target.css));
 });
+gulp.task("fonts", function(){
+  gulp.src(paths.ng2material+'/MaterialIcons*')
+  .pipe(gulp.dest(target.css));
+})
 
 gulp.task('js', function (done) {
     var js = [

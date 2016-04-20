@@ -1,8 +1,10 @@
 $md-font-url: "node_modules/ng2-material/dist/";
+$md-font-url: '/build/styles/';
 @import "node_modules/ng2-material/dist/font.scss";
 @import "node_modules/ng2-material/source/all";
 $md-primary: md-palette($md-amber, 500, 100, 700, $md-contrast-palettes);
 $md-accent: md-palette($md-indigo, 500, 300, 700, $md-contrast-palettes);
+
 @import "node_modules/ng2-material/source/components";
 
 @import "variables";
