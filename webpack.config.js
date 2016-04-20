@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var WebpackMd5Hash    = require('webpack-md5-hash');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 test = {
   entry: [
@@ -15,11 +16,18 @@ test = {
     filename: 'unitrans.[chunkhash].js',
     pathinfo: false // show module paths in the bundle, handy for debugging
   },
+  devServer: {
+        // This is required for webpack-dev-server. The path should
+        // be an absolute path to your build destination.
+        //@todo
+        outputPath: path.join(__dirname, 'www/build')
+    },
+  devtool: 'source-map',
   module: {
     loaders: [
       {
         test: /\.ts$/,
-        loader: 'awesome-typescript',
+        loader: 'awesome-typescript-loader',
         query: {
           doTypeCheck: true,
           resolveGlobs: false,
@@ -64,6 +72,7 @@ module.exports = {
   ],
   output: {
     path: path.resolve('build/webpack'),
+    // filename: 'unitrans.[chunkhash].js',
     filename: 'unitrans.js',
   },
   //devtool: 'source-map',
@@ -72,7 +81,10 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.ts$/, loader: 'awesome-typescript'},
+      {
+        test: /\.ts$/,
+        loader: 'awesome-typescript-loader',
+        exclude: /node_modules/},
     ],
     noParse: [
       /es6-shim/,
@@ -98,12 +110,13 @@ module.exports = {
       comments: false//prod
 
     }),
-    new HtmlWebpackPlugin({
-      template: 'index_prod.tpl.html',
-      filename: 'index.html',
-      inject:false,
-      hash: true,
-      cache:false
-    })
+    // new HtmlWebpackPlugin({
+    //   template: 'index.prod.tpl.html',
+    //   filename: 'index.html',
+    //   inject:false,
+    //   hash: true,
+    //   cache:false
+    // })
+    //new CopyWebpackPlugin([{ from: 'index.html', to: '../../index.html' }])
   ]
 };
