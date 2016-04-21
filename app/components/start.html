@@ -40,11 +40,7 @@
           <md-card-header>
             <p>{{item.Name}} [{{item.Source || "?"}}-{{item.Lang}}] / {{item.Time}} ms / Score {{item.Score}}</p>
           </md-card-header>
-          <md-card-content>
-          <!-- <div class="panel-body"> -->
-            {{item.Translation}}
-          <!-- </div> -->
-          </md-card-content>
+          <md-card-content class="pre-line">{{item.Translation}}</md-card-content>
         </md-card>
 
       </div>
