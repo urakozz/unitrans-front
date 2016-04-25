@@ -9,21 +9,15 @@ $md-accent: md-palette($md-indigo, 500, 300, 700, $md-contrast-palettes);
 
 @import "variables";
 
-.container .text-muted {
-  margin: 20px 0;
-}
 
 .ut-header {
   background-color: $color-amber
 }
 
-a, a:hover, a:focus {
-    color: #3f51b5; /*indigo*/
-}
 .hidden {
   display: none;
 }
-/* fix ng2-material*/
+/* fix :) ng2-material*/
 html, body {
   height: auto;
   position: static;
@@ -32,6 +26,9 @@ html, body {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+}
+md-content {
+overflow: auto !important;
 }
 
 html {
@@ -47,69 +44,6 @@ html {
   background-color: #f5f5f5;
 }
 
-.panel-heading-material-indigo{
-  background-color: #3f51b5 ;
-  color: #fff ;
-  padding: 13px;
-}
-
-
-.ut-container-navbar__shadow{
-  box-shadow:
-    0 1px 6px 0 rgba(0, 0, 0, .12),
-    0 1px 6px 0 rgba(0, 0, 0, .12)
-}
-pre {
-  font-size: 11px;
-}
-.row {
-  margin-right: 0;
-  margin-left: 0;
-}
-.container {
-  padding-right: 0;
-  padding-left: 0;
-}
-.col-xs-12 {
-  padding-right: 0;
-  padding-left: 0;
-}
-.header__padding{
-  padding-left: 15px;
-}
-@media (min-width: 768px) {
-  .ut-container-navbar{
-    padding: 0 1rem;
-  }
-  pre {
-    font-size: 13px;
-  }
-
-  .col-xs-12 {
-    margin-right: 15px;
-    margin-left: 15px;
-  }
-  .container {
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-  .header__padding{
-    padding-left: inherit;
-  }
-
-  .Grid {
-    display: flex;
-    margin-left: -15px;
-    margin-right: -15px;
-  }
-  .Grid-cell {
-    flex: 1;
-  }
-  .Grid--flexCells>.Grid-cell {
-    display: flex;
-  }
-}
-
 .pre-line {
       white-space: pre-line;
 }
@@ -118,18 +52,6 @@ pre {
   width:100%
 }
 
-.shadow-z-0 {
-  box-shadow: none !important
-}
-.margin-bottom-none {
-  margin-bottom: 0 !important
-}
-.text-white {
-  color: white
-}
-.navbar.top-nav-collapse{
-  background-color: rgba(255, 193, 7, .9);;
-}
 textarea {
   overflow:hidden
 }
