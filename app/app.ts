@@ -25,7 +25,26 @@ import {MATERIAL_DIRECTIVES} from "ng2-material/all";
 @Component({
     selector: 'unitrans-app',
   directives: [CORE_DIRECTIVES,LoggedInRouterOutlet,RouterLink,MATERIAL_DIRECTIVES],
-  templateUrl:"templates/app_main.html"
+  template:`
+  <md-toolbar class="md-toolbar-tools ut-header">
+    <button md-button hide-gt-xs class="md-icon-button" aria-label="Settings" (click)="showMenu = !showMenu">
+      <i md-icon>menu</i>
+    </button>
+    <button md-button [routerLink]="['./Start']">Unitrans</button>
+
+    <span flex></span>
+    <button md-button hide-xs [routerLink]="['./Login']" *ngIf="!userService.in">Login</button>
+    <button md-button hide-xs [routerLink]="['./Panel']" *ngIf="userService.in">Panel ({{userService.username}})</button>
+    <button md-button hide-xs (click)="logout()" *ngIf="userService.in">Logout</button>
+  </md-toolbar>
+  <section layout="column" *ngIf="showMenu">
+    <button md-button [routerLink]="['./Login']" *ngIf="!userService.in">Login</button>
+    <button md-button [routerLink]="['./Panel']" *ngIf="userService.in">Panel ({{userService.username}})</button>
+    <button md-button (click)="logout()" *ngIf="userService.in">Logout</button>
+  </section>
+
+  <router-outlet></router-outlet>
+  `
 })
 @RouteConfig([
   { path: '/', component: Start, as:"Start" },
