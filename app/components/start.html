@@ -51,6 +51,8 @@
       <pre *ngIf="processedData" class="width100">{{processedText}}</pre>
     </div>
   </div> -->
-<section layout="row" layout-wrap>
+<section layout="row" layout-wrap *ngIf="!processedData">
+  <div flex="100">
     <button md-raised-button class="md-raised md-primary" (click)="translateForce()">Translate</button>
+  </div>
 </section>
