@@ -1,10 +1,14 @@
+"use strict";
+
+var PROD = JSON.parse(process.env.PROD || '0');
+
 var path = require('path');
 var webpack = require('webpack');
 var WebpackMd5Hash    = require('webpack-md5-hash');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
-test = {
+var test = {
   entry: [
     path.normalize('es6-shim/es6-shim.min'),
     'reflect-metadata',
@@ -62,8 +66,7 @@ test = {
   }
 };
 
-// https://github.com/ghillert/angular2-webpack-starter-bootstrap
-module.exports = {
+let config = {
   entry: [
     path.normalize('es6-shim/es6-shim.min'),
     'reflect-metadata',
@@ -72,7 +75,7 @@ module.exports = {
   ],
   output: {
     path: path.resolve('build/webpack'),
-    // filename: 'unitrans.[chunkhash].js',
+    //filename: 'unitrans.[chunkhash].js',
     filename: 'unitrans.js',
   },
   //devtool: 'source-map',
@@ -84,7 +87,8 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'awesome-typescript-loader',
-        exclude: /node_modules/},
+        exclude: /node_modules/
+      },
     ],
     noParse: [
       /es6-shim/,
@@ -102,21 +106,34 @@ module.exports = {
     //   filename: 'polyfills.[chunkhash].bundle.js',
     //   chunks: Infinity
     // }),
-    new webpack.optimize.UglifyJsPlugin({
 
-      beautify: false,//prod
-      mangle: false,
-      compress : { screw_ie8 : true},//prod
-      comments: false//prod
-
-    }),
-    // new HtmlWebpackPlugin({
-    //   template: 'index.prod.tpl.html',
-    //   filename: 'index.html',
-    //   inject:false,
-    //   hash: true,
-    //   cache:false
-    // })
-    //new CopyWebpackPlugin([{ from: 'index.html', to: '../../index.html' }])
+    new HtmlWebpackPlugin({
+      template: 'index.prod.tpl.html',
+      filename: 'index.html',
+      inject:false,
+      hash: true,
+      cache:false,
+      window:{
+        __production:PROD
+      }
+    })
+    //new CopyWebpackPlugin([{ from: 'app/**/.html', to: 'app' }])
   ]
 };
+
+if(PROD) {
+  config.output.filename = 'unitrans.[chunkhash].js'
+  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+
+    beautify: false,//prod
+    mangle: false,
+    compress : { screw_ie8 : true},//prod
+    comments: false//prod
+
+  }))
+}
+
+// https://github.com/ghillert/angular2-webpack-starter-bootstrap
+
+
+module.exports = config

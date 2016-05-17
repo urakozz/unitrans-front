@@ -15,8 +15,6 @@ import {
   MATERIAL_DIRECTIVES
 } from "ng2-material/all";
 
-//let template = require('./list.html');
-
 @Component({
     selector: 'signup',
     templateUrl: "app/components/signup.html",

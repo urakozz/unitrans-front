@@ -1,6 +1,6 @@
 {
-  "firebase": "unitrans-front",
-  "public": ".",
+  "firebase": "unitrans",
+  "public": "./build/webpack/prod",
   "ignore": [
     "firebase.json",
     "**/node_modules/**",
@@ -11,22 +11,8 @@
     "destination": "/index.html"
   }],
   "headers": [{
-    "source" : "**/app/**/*.@(js|map)",
-    "headers" : [ {
-      "key" : "Cache-Control",
-      "value" : "max-age=3600"
-    }]
-  },
-  {
-    "source" : "**/vendor/**/*.@(js|map)",
-    "headers" : [ {
-      "key" : "Cache-Control",
-      "value" : "max-age=7200"
-    }]
-  },
-  {
-    "source" : "**/build/**/*.@(js)",
-    "headers" : [ {
+    "source" : "unitrans*.@(js|map)",
+    "headers" : [{
       "key" : "Cache-Control",
       "value" : "max-age=128000"
     }]

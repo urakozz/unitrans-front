@@ -1,38 +1,89 @@
-<div layout="column" layout-padding>
-  <h1>Unitrans</h1>
+
+  <!-- <h1>Unitrans</h1> -->
 
   <!-- <p>Try out translation across multiple translations right here</p> -->
-</div>
+  <div flex>
 
-<section layout="row" layout-align="start center" layout-wrap>
-  <div flex="100" flex-gt-sm="50" hide-xs>
-    <!-- <span>From:</span> -->
-    <button md-button disabled="true" class="md-primary">{{processedData && processedData.Source || "Auto"}}</button>
-  </div>
-  <div flex="100" flex-gt-sm="50">
-    <!-- <span>Translate to:</span> -->
-    <!-- <div class="btn-group pull-right" role="group" aria-label="languages"> -->
-      <button md-raised-button
-        *ngFor="#lang of languages"
-        (click)=selectLang(lang)
-        class="md-raised"
-        [class.md-primary]="lang === selectedLang">{{lang.title}}</button>
-  </div>
-
-  <!-- </div> -->
-</section>
-
-<section layout="row" layout-wrap>
-
-      <div flex="100" flex-gt-sm="50">
-          <md-card>
-              <md-card-content>
-                  <md-input-container class="md-block">
-                    <textarea md-input autogrow rows="1" [(ngModel)]="sourceText" #term (keyup)="asyncTranslator(term.value)" placeholder="Source"></textarea>
-                  </md-input-container>
-              </md-card-content>
-          </md-card>
+    <section layout="row" layout-wrap>
+      <div flex="100" flex-gt-sm="50" >
+        <md-card>
+          <md-card-actions layout="row" layout-align="end center">
+            <button md-button disabled="true" class="md-primary">{{processedData && processedData.Source || "Auto"}}</button>
+          </md-card-actions>
+          <md-card-content>
+            <md-input-container class="md-block ut-source">
+              <textarea md-input autogrow rows="1" [(ngModel)]="sourceText" #term (keyup)="asyncTranslator(term.value)" placeholder="Source"></textarea>
+            </md-input-container>
+          </md-card-content>
+        </md-card>
       </div>
+
+      <div flex="100" flex-gt-sm="50" #transc>
+        <md-card>
+          <md-card-actions layout="row" layout-align="end center">
+            <button md-button
+              *ngFor="#lang of languages"
+              (click)=selectLang(lang)
+              class="md-raised"
+              [class.md-primary]="lang === selectedLang">{{lang.title}}</button>
+          </md-card-actions>
+          <md-card-content>
+            <ut-translation-container>
+              <ut-translation>{{translationUni.Translation}}</ut-translation>
+            </ut-translation-container>
+          </md-card-content>
+        </md-card>
+
+        <section layout="row" layout-align="end center" *ngIf="processedData">
+          <span (click)="transc.__show = !transc.__show">
+            <p *ngIf="!transc.__show">Expand details</p>
+            <p *ngIf="transc.__show">Collapse details</p>
+          </span>
+          <button md-button class="md-icon-button" aria-label="Favorite" (click)="transc.__show = !transc.__show">
+            <i *ngIf="!transc.__show" md-icon>keyboard_arrow_left</i>
+            <i *ngIf="transc.__show" md-icon>keyboard_arrow_down</i>
+          </button>
+        </section>
+
+        <section *ngIf="transc.__show">
+          <md-card *ngFor="#item of processedDetails">
+            <md-card-header>
+              <md-card-header-text>
+                <span class="md-subhead">{{item.Name}} [{{item.Source || "?"}} - {{item.Lang}}]</span>
+              </md-card-header-text>
+            </md-card-header>
+            <md-card-content>
+              <ut-translation-container>
+                <ut-translation>{{item.Translation}}</ut-translation>
+              </ut-translation-container>
+            </md-card-content>
+          </md-card>
+        </section>
+
+      </div>
+
+    </section>
+
+
+    <!-- <md-card *ngFor="#card of cards">
+      {{card}}
+    </md-card> -->
+
+
+  </div>
+<!--
+
+<section layout="row">
+
+    <div flex="100" flex-gt-sm="50">
+        <md-card>
+            <md-card-content>
+                <md-input-container class="md-block">
+                  <textarea md-input autogrow rows="1" [(ngModel)]="sourceText" #term (keyup)="asyncTranslator(term.value)" placeholder="Source"></textarea>
+                </md-input-container>
+            </md-card-content>
+        </md-card>
+    </div>
     <div flex="100" flex-gt-sm="50">
       <md-progress-linear *ngIf="sourceText && !processedData" mode="indeterminate"></md-progress-linear>
       <div *ngIf="processedData">
@@ -45,14 +96,14 @@
 
       </div>
     </div>
-  </section>
+  </section> -->
   <!-- <div class="row">
     <div class="col-xs-12">
       <pre *ngIf="processedData" class="width100">{{processedText}}</pre>
     </div>
   </div> -->
-<section layout="row" layout-wrap *ngIf="!processedData">
+<!-- <section layout="row" layout-wrap *ngIf="!processedData">
   <div flex="100">
     <button md-raised-button class="md-raised md-primary" (click)="translateForce()">Translate</button>
   </div>
-</section>
+</section> -->

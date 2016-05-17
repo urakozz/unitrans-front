@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <base href="/">
+    <title>Unitrans - Manage your i18n</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1, user-scalable=no">
+    <meta name="description" content="Compare translations across number of online translators">
+
+    <script src="https://cdn.polyfill.io/v2/polyfill.js?features=default,fetch"></script>
+
+    <link rel="stylesheet" href="/styles/main.css">
+    <!-- rel="preload" -->
+    <link rel="icon" type="image/png" href="https://s24.postimg.org/72b0amgn5/Icon_29_2x.png">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body>
+    <unitrans-app><span id="initloading">Loading</span></unitrans-app>
+  </body>
+  <script>
+  <% for (var varName in htmlWebpackPlugin.options.window) { %>
+    window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
+  <% } %>
+</script>
+  <script async src="/<%= htmlWebpackPlugin.files.js %>"></script>
+  <script type="text/javascript">
+      (function (d, w, c) {
+        if(w.location.host !== "unitrans.me"){
+          return;
+        }
+          (w[c] = w[c] || []).push(function() {
+              try {
+                  w.yaCounter36681270 = new Ya.Metrika({
+                      id:36681270,
+                      clickmap:true,
+                      trackLinks:true,
+                      accurateTrackBounce:true,
+                      trackHash:true
+                  });
+              } catch(e) { }
+          });
+
+          var n = d.getElementsByTagName("script")[0],
+              s = d.createElement("script"),
+              f = function () { n.parentNode.insertBefore(s, n); };
+          s.type = "text/javascript";
+          s.async = true;
+          s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+          if (w.opera == "[object Opera]") {
+              d.addEventListener("DOMContentLoaded", f, false);
+          } else { f(); }
+      })(document, window, "yandex_metrika_callbacks");
+
+      var el = document.getElementById('initloading'),
+          i = 0,
+          initLoadAnimation = setInterval(function() {
+            i = ++i % 4;
+            el.innerHTML = 'Loading' + Array(i + 1).join('.');
+      }, 600);
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/36681270" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</html>

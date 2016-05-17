@@ -1,5 +1,5 @@
 $md-font-url: "node_modules/ng2-material/dist/";
-$md-font-url: '/build/styles/';
+$md-font-url: './';
 @import "node_modules/ng2-material/dist/font.scss";
 @import "node_modules/ng2-material/source/all";
 $md-primary: md-palette($md-amber, 500, 100, 700, $md-contrast-palettes);
@@ -17,41 +17,82 @@ $md-accent: md-palette($md-indigo, 500, 300, 700, $md-contrast-palettes);
 .hidden {
   display: none;
 }
-/* fix :) ng2-material*/
-html, body {
-  height: auto;
-  position: static;
-}
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
 md-content {
-overflow: auto !important;
+  overflow: auto !important;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+
+main {
+  min-height: calc(100vh - 128px);
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #f5f5f5;
+@media only screen and (min-width: 0) and (max-width: 600px) and (orientation: portrait) {
+  main {
+    min-height: calc(100vh - 112px);
+  }
+}
+@media only screen and (min-width: 0) and (max-width: 600px) and (orientation: landscape) {
+  main {
+    min-height: calc(100vh - 96px);
+  }
+}
+
+ut-translation-container{
+  position: relative;
+  padding: 2px;
+  margin: 18px 0;
+  vertical-align: middle;
+  display: block;
+  ut-translation {
+    white-space: pre-line;
+    word-wrap: break-word;
+    
+    display: block;
+    margin-top: 0;
+    background: none;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+    border-width: 0 0 1px 0;
+    line-height: 26px;
+    min-height: 26px;
+    width: 100%;
+  }
+}
+
+textarea[autogrow] {
+  height: 26px;
+  overflow:hidden
+}
+
+.ut-source{
+  .md-errors-spacer{
+    display: none;
+  }
 }
 
 .pre-line {
       white-space: pre-line;
 }
 
-.width100{
-  width:100%
-}
+footer{
+  md-toolbar:not(.md-menu-toolbar) {
+      background-color: #f5f5f5;
+      color:#999;
+      [md-icon]{
+        color:#999;
+      }
+      a:hover{
+        color:#777;
+        [md-icon]{
+          color:#777;
+        }
+      }
+      .footer__item {
+        padding-left: 10px;
+        font-size:13px;
+      }
+  }
 
-textarea {
-  overflow:hidden
 }

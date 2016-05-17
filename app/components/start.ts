@@ -23,12 +23,14 @@ export class Start {
     sourceText: string;
     processedData: any;
     private _searchTermStream = new Subject<string>();
+    private cards;
     // formGroup: ControlGroup = new ControlGroup({
     //   source: new Control()
     // });
 
     constructor(public http: Http) {
       this.token = localStorage.getItem("jwt")
+      this.cards = Array.apply(null, Array(100)).map(function(){return "hello"})
       // this.formGroup.valueChanges.subscribe((values) => {
       //   this.asyncTranslator(values.source)
       // });
@@ -78,18 +80,23 @@ export class Start {
       return JSON.stringify(this.processedData, null, 2)
     }
 
-    get processedList(){
-      if (!this.processedData.RawTransData[this.selectedLang.code]){
+    get translationUni(){
+      if (!this.processedData || !this.processedData.RawTransData[this.selectedLang.code]){
+        return {}
+      }
+      let translations = this.processedData.RawTransData[this.selectedLang.code]
+      return translations["uni"]
+    }
+
+    get processedDetails(){
+      if (!this.processedData || !this.processedData.RawTransData[this.selectedLang.code]){
         return []
       }
       let list = []
       let translations = this.processedData.RawTransData[this.selectedLang.code]
       Object.keys(translations).forEach(k => {
         let tr = translations[k]
-        //tr.Translation = tr.Translation.replace("\n", "<br>")
-        if (k == "uni") {
-          list.unshift(tr)
-        }else{
+        if (k !== "uni") {
           list.push(tr)
         }
       })
