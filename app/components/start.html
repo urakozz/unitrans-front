@@ -4,8 +4,8 @@
   <!-- <p>Try out translation across multiple translations right here</p> -->
   <div flex>
 
-    <section layout="row" layout-wrap>
-      <div flex="100" flex-gt-sm="50" >
+    <section layout="row" layout-xs="column" layout-wrap>
+      <div flex>
         <md-card>
           <md-card-actions layout="row" layout-align="end center">
             <button md-button disabled="true" class="md-primary">{{processedData && processedData.Source || "Auto"}}</button>
@@ -18,7 +18,7 @@
         </md-card>
       </div>
 
-      <div flex="100" flex-gt-sm="50" #transc>
+      <div flex #transc>
         <md-card>
           <md-card-actions layout="row" layout-align="end center">
             <button md-button
