@@ -9,6 +9,11 @@
         <md-card>
           <md-card-actions layout="row" layout-align="end center">
             <button md-button disabled="true" class="md-primary">{{processedData && processedData.Source || "Auto"}}</button>
+            <button hide-xs md-button
+              class="md-icon-button"
+              disabled="true">
+              <i md-icon>more_horiz</i>
+            </button>
           </md-card-actions>
           <md-card-content>
             <md-input-container class="md-block ut-source">
@@ -25,7 +30,12 @@
               *ngFor="#lang of languages"
               (click)=selectLang(lang)
               class="md-raised"
-              [class.md-primary]="lang === selectedLang">{{lang.title}}</button>
+              [class.md-primary]="lang.code === selectedLang.code">{{lang.title}}</button>
+            <button hide-xs md-button
+              class="md-icon-button"
+              (click)="showAdvanced($event)">
+              <i md-icon>more_horiz</i>
+            </button>
           </md-card-actions>
           <md-card-content>
             <ut-translation-container>
@@ -46,7 +56,8 @@
             <i *ngIf="transc.__show" md-icon>keyboard_arrow_down</i>
           </button>
           <button md-button hide-xs class="md-icon-button" (click)="copy($event, transitem)">
-            <i md-icon>content_copy</i>
+            <i md-icon *ngIf="!_justCopied">content_copy</i>
+            <i md-icon *ngIf="_justCopied">done</i>
           </button>
         </section>
 
@@ -55,6 +66,7 @@
             <md-card-header>
               <md-card-header-text>
                 <span class="md-subhead">{{item.Name}} [{{item.Source || "?"}} - {{item.Lang}}]</span>
+                <span class="md-subhead">Score: {{item.Score}}</span>
               </md-card-header-text>
             </md-card-header>
             <md-card-content>

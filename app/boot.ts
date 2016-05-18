@@ -14,7 +14,7 @@ bootstrap(AppComponent, [
   ROUTER_PROVIDERS,
   HTTP_PROVIDERS,
   MATERIAL_PROVIDERS,
-  provide('API_ROOT', {useValue: "https://transpoint.herokuapp.com"}),
+  provide('API_ROOT', {useValue: "https://unitransapi.herokuapp.com"}),
   provide('TOKEN_NAME', {useValue: "jwt"}),
   provide(UserService, { useClass: UserService}),
   provide(AuthHttp, { useClass: AuthHttp})

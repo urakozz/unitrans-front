@@ -1,4 +1,4 @@
-import {Component} from "angular2/core"
+import {Component, ElementRef, Input, Output, EventEmitter} from "angular2/core"
 import {Control, ControlGroup} from "angular2/common"
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
 import {Http, Headers, Request, Response, RequestOptions, RequestMethod} from "angular2/http"
@@ -7,9 +7,9 @@ import {TimerWrapper} from 'angular2/src/facade/async'
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject'
 
-import {Lang} from '../models/lang';
+import {Lang, LANGS} from '../models/lang';
 import {AutogrowDirective} from '../directives/textarea'
-import {MATERIAL_DIRECTIVES} from "ng2-material/all";
+import {MATERIAL_DIRECTIVES, MdDialog, Media, MdDialogConfig, MdDialogBasic, MdDialogRef} from "ng2-material/all";
 
 @Component({
     selector: 'start',
@@ -19,17 +19,24 @@ import {MATERIAL_DIRECTIVES} from "ng2-material/all";
 export class Start {
     token: string;
     selectedLang: Lang;
-    languages: Lang[];
+    languages: Lang[] ;
+    languagesAll: Lang[] = LANGS;
     sourceText: string;
     processedData: any;
     private _searchTermStream = new Subject<string>();
-    private clip: ZC.ZeroClipboardClient;
+    // private clip: ZC.ZeroClipboardClient;
+    private _justCopied: boolean;
+    status:string
 
     // formGroup: ControlGroup = new ControlGroup({
     //   source: new Control()
     // });
 
-    constructor(public http: Http) {
+    constructor(
+      public http: Http,
+      public dialog: MdDialog,
+      public media: Media,
+      protected element: ElementRef) {
       this.token = localStorage.getItem("jwt")
       // this.formGroup.valueChanges.subscribe((values) => {
       //   this.asyncTranslator(values.source)
@@ -51,7 +58,7 @@ export class Start {
       if (!code) {
         code = this.languages[0].code
       }
-      this.languages.forEach((lang:Lang) => {
+      this.languagesAll.forEach((lang:Lang) => {
         if (lang.code === code) {
           this.selectLang(lang)
         }
@@ -132,20 +139,79 @@ export class Start {
         // copy text
         document.execCommand('copy');
         ti.blur();
+        this.justCopied()
       } catch (err) {
         console.error(err)
         alert('please press Ctrl/Cmd+C to copy');
       }
     }
 
+    justCopied(){
+      this._justCopied = true
+      Observable.of(false).delay(500).subscribe(b => {
+        this._justCopied = b
+      })
+    }
+
+    showAdvanced(ev) {
+      let config = new CustomDialogConfig()
+        .lang(this.selectedLang, this.languagesAll)
+        .targetEvent(ev);
+      this.dialog.open(DialogCustom, this.element, config)
+        .then((ref: MdDialogRef) => {
+          ref.whenClosed.then((lang:Lang) => {
+            lang && this.selectLang(lang)
+          })
+        });
+    }
+
     private doRequest(value: string): Observable<Object>{
       let authHeader = new Headers();
       return this.http.request(new Request(new RequestOptions({
         method: RequestMethod.Post,
-        url: "https://transpoint.herokuapp.com/webapi/tr",
+        url: "https://unitransapi.herokuapp.com/webapi/tr",
         //url: "http://127.0.0.1:8088/webapi/tr",
         body: JSON.stringify({text:value, lang:[this.selectedLang.code]}),
         headers: authHeader
       }))).map(req => <Object>req.json());
     }
+}
+
+
+class CustomDialogConfig extends MdDialogConfig {
+    lang(lang: Lang, languages:Lang[]) {
+        this.context.lang = lang;
+        this.context.languages = languages;
+        console.log(lang)
+        return this;
+    }
+}
+
+@Component({
+  selector: 'dialog-custom',
+  template: `
+    <div flex>
+      <button md-button class="md-padding"
+        *ngFor="#_lang of languages"
+        (click)=selectLang(_lang)
+        class="md-raised"
+        [class.md-primary]="_lang.code === lang.code">{{_lang.title}}</button>
+    </div>
+  `,
+  styles: [``],
+  directives: [MATERIAL_DIRECTIVES]
+})
+class DialogCustom {
+  @Input() lang: Lang;
+  @Input() languages: Lang[]
+  // @Output() newlang = new EventEmitter();
+
+  constructor(private dialog: MdDialogRef) {
+    console.log(this)
+  }
+
+  selectLang(lang: Lang){
+    this.lang=lang
+    this.dialog.close(lang)
+  }
 }
