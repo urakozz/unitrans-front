@@ -82,7 +82,6 @@ let config = {
     //filename: 'unitrans.[chunkhash].js',
     filename: 'unitrans.js',
   },
-  devtool: 'source-map',
   resolve: {
     extensions: ['', '.ts', '.js']
   },
@@ -137,7 +136,8 @@ if(PROD) {
     comments: false//prod
 
   }))
-  config.devtools = undefined
+} else {
+  config.devtools = 'source-map'
 }
 
 // https://github.com/ghillert/angular2-webpack-starter-bootstrap

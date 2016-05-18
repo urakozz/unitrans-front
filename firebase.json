@@ -1,26 +1,39 @@
 {
-  "firebase": "unitrans",
-  "public": "./build/webpack/prod",
   "ignore": [
     "firebase.json",
     "**/node_modules/**",
     "**/.*"
   ],
-  "rewrites": [{
-    "source": "**",
-    "destination": "/index.html"
-  }],
-  "headers": [{
-    "source" : "unitrans*.@(js|map)",
-    "headers" : [{
-      "key" : "Cache-Control",
-      "value" : "max-age=604800, public"
-    }]
-  },{
-    "source" : "*.@(woff|woff2)",
-    "headers" : [{
-      "key" : "Cache-Control",
-      "value" : "max-age=604800, public"
-    }]
-  }]
+  "headers": [
+    {
+      "source": "unitrans*.@(js|map)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "max-age=604800, public"
+        }
+      ]
+    },
+    {
+      "source": "*.@(woff|woff2)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "max-age=604800, public"
+        }
+      ]
+    }
+  ],
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "hosting": {
+    "public": "./build/webpack/prod",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
 }
