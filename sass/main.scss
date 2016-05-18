@@ -43,10 +43,10 @@ ut-translation-container{
   margin: 18px 0;
   vertical-align: middle;
   display: block;
-  ut-translation {
+  ut-translation, textarea[ut-translation] {
     white-space: pre-line;
     word-wrap: break-word;
-    
+
     display: block;
     margin-top: 0;
     background: none;
@@ -58,6 +58,36 @@ ut-translation-container{
     line-height: 26px;
     min-height: 26px;
     width: 100%;
+  }
+  textarea[ut-translation]{
+    color: rgba(0, 0, 0, 0.87);
+    border-color: rgba(0, 0, 0, 0.12);
+
+    order: 2;
+    background: none;
+    padding-top: 2px;
+    padding-bottom: 1px;
+    border-width: 0 0 1px 0;
+    height: 30px;
+    -ms-flex-preferred-size: 26px;
+    border-radius: 0;
+    border-style: solid;
+    width: 100%;
+    box-sizing: border-box;
+    float: left;
+    resize: none;
+  }
+  textarea[fake-area]{
+    height: 0;
+    opacity: 0;
+    padding: 0;
+    margin: -1px;
+    // border: none;
+  }
+  &:after{
+    content: '';
+    display: table;
+    clear: both;
   }
 }
 
@@ -82,6 +112,7 @@ footer{
       color:#999;
       [md-icon]{
         color:#999;
+        font-size:16px;
       }
       a:hover{
         color:#777;

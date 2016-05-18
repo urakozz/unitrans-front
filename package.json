@@ -8,17 +8,20 @@
   "license": "ISC",
   "dependencies": {
     "angular2": "2.0.0-beta.15",
+    "clipboard": "^1.5.10",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.35.0",
     "ng2-material": "^0.3.6",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
     "systemjs": "0.19.6",
+    "whatwg-fetch": "^1.0.0",
+    "zeroclipboard": "^2.2.0",
     "zone.js": "^0.6.6"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
-    "awesome-typescript-loader": "^0.17.0-rc.6",
+    "awesome-typescript-loader": "^0.18.0",
     "copy-webpack-plugin": "^2.1.1",
     "gulp": "^3.9.0",
     "gulp-replace": "^0.5.4",
@@ -26,12 +29,12 @@
     "gulp-watch": "^4.3.5",
     "html-webpack-plugin": "^2.15.0",
     "live-server": "^0.8.2",
-    "typescript": "^1.6.2",
+    "typings": "^1.0.4",
     "webpack-md5-hash": "0.0.5",
     "webpack-stream": "^3.1.0"
   },
   "scripts": {
-    "tsc": "tsc",
+    "postinstall": "typings install",
     "start": "concurrently \"gulp watch\" \"npm run serve\" ",
     "serve": "live-server --entry-file=index.html --ignore=app"
   }

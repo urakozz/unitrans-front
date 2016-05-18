@@ -66,9 +66,13 @@ var test = {
   }
 };
 
+
+// Config
 let config = {
   entry: [
     path.normalize('es6-shim/es6-shim.min'),
+    path.normalize('whatwg-fetch/fetch'),
+    // path.normalize('zeroclipboard/dist/ZeroClipboard'),
     'reflect-metadata',
     path.normalize('zone.js/dist/zone'),
     './app/boot.ts',
@@ -78,7 +82,7 @@ let config = {
     //filename: 'unitrans.[chunkhash].js',
     filename: 'unitrans.js',
   },
-  //devtool: 'source-map',
+  devtool: 'source-map',
   resolve: {
     extensions: ['', '.ts', '.js']
   },
@@ -87,7 +91,10 @@ let config = {
       {
         test: /\.ts$/,
         loader: 'awesome-typescript-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        query: {
+          useCache:true
+        },
       },
     ],
     noParse: [
@@ -112,7 +119,6 @@ let config = {
       filename: 'index.html',
       inject:false,
       hash: true,
-      cache:false,
       window:{
         __production:PROD
       }
@@ -131,6 +137,7 @@ if(PROD) {
     comments: false//prod
 
   }))
+  config.devtools = undefined
 }
 
 // https://github.com/ghillert/angular2-webpack-starter-bootstrap

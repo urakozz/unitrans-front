@@ -14,7 +14,7 @@
     "source" : "unitrans*.@(js|map)",
     "headers" : [{
       "key" : "Cache-Control",
-      "value" : "max-age=128000"
+      "value" : "max-age=604800, public"
     }]
   }]
 }

@@ -30,22 +30,27 @@
           <md-card-content>
             <ut-translation-container>
               <ut-translation>{{translationUni.Translation}}</ut-translation>
+              <textarea #transitem fake-area>{{translationUni.Translation}}</textarea>
             </ut-translation-container>
           </md-card-content>
         </md-card>
 
         <section layout="row" layout-align="end center" *ngIf="processedData">
-          <span (click)="transc.__show = !transc.__show">
+
+          <!-- <span (click)="transc.__show = !transc.__show">
             <p *ngIf="!transc.__show">Expand details</p>
             <p *ngIf="transc.__show">Collapse details</p>
-          </span>
-          <button md-button class="md-icon-button" aria-label="Favorite" (click)="transc.__show = !transc.__show">
+          </span> -->
+          <button md-button class="md-icon-button" (click)="transc.__show = !transc.__show">
             <i *ngIf="!transc.__show" md-icon>keyboard_arrow_left</i>
             <i *ngIf="transc.__show" md-icon>keyboard_arrow_down</i>
           </button>
+          <button md-button hide-xs class="md-icon-button" (click)="copy($event, transitem)">
+            <i md-icon>content_copy</i>
+          </button>
         </section>
 
-        <section *ngIf="transc.__show">
+        <section layout="column" *ngIf="transc.__show">
           <md-card *ngFor="#item of processedDetails">
             <md-card-header>
               <md-card-header-text>

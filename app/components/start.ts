@@ -23,14 +23,14 @@ export class Start {
     sourceText: string;
     processedData: any;
     private _searchTermStream = new Subject<string>();
-    private cards;
+    private clip: ZC.ZeroClipboardClient;
+
     // formGroup: ControlGroup = new ControlGroup({
     //   source: new Control()
     // });
 
     constructor(public http: Http) {
       this.token = localStorage.getItem("jwt")
-      this.cards = Array.apply(null, Array(100)).map(function(){return "hello"})
       // this.formGroup.valueChanges.subscribe((values) => {
       //   this.asyncTranslator(values.source)
       // });
@@ -41,7 +41,9 @@ export class Start {
       ]
       this.initLang()
       this.initStream()
-    }
+      //ZeroClipboard.config({"swfPath":"https://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf"})
+      //this.clip = new ZeroClipboard()
+      }
 
     private initLang(): void{
 
@@ -119,6 +121,21 @@ export class Start {
 
     asyncTranslator(term:string): void {
       this._searchTermStream.next(term)
+    }
+
+    copy(e, ti){
+      console.log(e, ti.value)
+      ti.select()
+      // this.clip.setText("text")
+      // console.log(this.clip)
+      try {
+        // copy text
+        document.execCommand('copy');
+        ti.blur();
+      } catch (err) {
+        console.error(err)
+        alert('please press Ctrl/Cmd+C to copy');
+      }
     }
 
     private doRequest(value: string): Observable<Object>{
