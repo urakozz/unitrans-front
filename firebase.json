@@ -4,6 +4,12 @@
     "**/node_modules/**",
     "**/.*"
   ],
+  "rewrites": [
+    {
+      "source": "**",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "unitrans*.@(js|map)",
@@ -28,12 +34,6 @@
     "rules": "database.rules.json"
   },
   "hosting": {
-    "public": "./build/webpack/prod",
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
+    "public": "./build/webpack/prod"
   }
 }

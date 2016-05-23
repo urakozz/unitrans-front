@@ -24,6 +24,7 @@ export class Start {
     sourceText: string;
     processedData: any;
     private _searchTermStream = new Subject<string>();
+    private _langStream = new Subject<Lang>();
     // private clip: ZC.ZeroClipboardClient;
     private _justCopied: boolean;
     status:string
@@ -41,13 +42,11 @@ export class Start {
       // this.formGroup.valueChanges.subscribe((values) => {
       //   this.asyncTranslator(values.source)
       // });
-      this.languages = [
-        { "code":"en", "title":"English"},
-        { "code":"ru", "title":"Russian"},
-        { "code":"de", "title":"German"}
-      ]
+
+      this.languages = this.languagesAll.filter(l => !!~["en", "ru"].indexOf(l.code))
       this.initLang()
       this.initStream()
+      this.initLangStreamSubscribe()
       //ZeroClipboard.config({"swfPath":"https://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf"})
       //this.clip = new ZeroClipboard()
       }
@@ -60,9 +59,17 @@ export class Start {
       }
       this.languagesAll.forEach((lang:Lang) => {
         if (lang.code === code) {
-          this.selectLang(lang)
+          this._doSelectLang(lang)
         }
       })
+    }
+
+    private initLangStreamSubscribe(): void{
+      this._langStream
+        .distinctUntilChanged()
+        .subscribe((l:Lang) => {
+          this._doSelectLang(l)
+        })
     }
 
     private initStream(): void{
@@ -112,7 +119,11 @@ export class Start {
       return list
     }
 
-    selectLang(lang: Lang): void {
+    asyncSelectLang(lang: Lang): void {
+      this._langStream.next(lang)
+    }
+
+    _doSelectLang(lang: Lang): void {
       this.selectedLang = lang
       localStorage.setItem("lang", lang.code)
       this.translateForce()
@@ -155,13 +166,14 @@ export class Start {
 
     showAdvanced(ev) {
       let config = new CustomDialogConfig()
-        .lang(this.selectedLang, this.languagesAll)
+        .lang(this.selectedLang, this.languagesAll, this._langStream)
         .targetEvent(ev);
       this.dialog.open(DialogCustom, this.element, config)
         .then((ref: MdDialogRef) => {
-          ref.whenClosed.then((lang:Lang) => {
-            lang && this.selectLang(lang)
-          })
+          // ref.whenClosed.then((lang:Lang) => {
+          //   lang && this.asyncSelectLang(lang)
+          //   console.log("set lang")
+          // })
         });
     }
 
@@ -179,10 +191,10 @@ export class Start {
 
 
 class CustomDialogConfig extends MdDialogConfig {
-    lang(lang: Lang, languages:Lang[]) {
+    lang(lang: Lang, languages:Lang[], langStream:Subject<Lang>):MdDialogConfig {
         this.context.lang = lang;
         this.context.languages = languages;
-        console.log(lang)
+        this.context.langStream = langStream;
         return this;
     }
 }
@@ -190,12 +202,23 @@ class CustomDialogConfig extends MdDialogConfig {
 @Component({
   selector: 'dialog-custom',
   template: `
-    <div flex>
-      <button md-button class="md-padding"
+    <div layout="column" layout-align="center center">
+      <!-- <button md-button class="md-padding"
         *ngFor="#_lang of languages"
         (click)=selectLang(_lang)
         class="md-raised"
-        [class.md-primary]="_lang.code === lang.code">{{_lang.title}}</button>
+        [class.md-primary]="_lang.code === lang.code">{{_lang.title}}</button> -->
+        <span>Select language:</span>
+        <md-input-container>
+          <select (change)="selectLangCode($event.target.value)">
+            <option *ngFor="#_lang of languages" [value]="_lang.code" [selected]="_lang.code === lang.code">
+              {{_lang.title}}
+            </option>
+          </select>
+        </md-input-container>
+          <button md-button (click)="dialog.close(null)">
+            <span>Dismiss</span>
+          </button>
     </div>
   `,
   styles: [``],
@@ -204,14 +227,24 @@ class CustomDialogConfig extends MdDialogConfig {
 class DialogCustom {
   @Input() lang: Lang;
   @Input() languages: Lang[]
-  // @Output() newlang = new EventEmitter();
+  @Input() langStream:Subject<Lang>
 
   constructor(private dialog: MdDialogRef) {
-    console.log(this)
+
   }
 
   selectLang(lang: Lang){
     this.lang=lang
     this.dialog.close(lang)
+  }
+  selectLangCode(l: string){
+    this.languages.forEach(i => {
+      if (i.code == l){
+        this.lang=i
+        this.langStream.next(i)
+      }
+    })
+
+    this.dialog.close(this.lang)
   }
 }

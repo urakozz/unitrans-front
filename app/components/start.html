@@ -8,12 +8,13 @@
       <div flex>
         <md-card>
           <md-card-actions layout="row" layout-align="end center">
-            <button md-button disabled="true" class="md-primary">{{processedData && processedData.Source || "Auto"}}</button>
-            <button hide-xs md-button
-              class="md-icon-button"
+            <button md-button
+              class="md-icon-button invisible"
               disabled="true">
               <i md-icon>more_horiz</i>
             </button>
+            <button md-button disabled="true" class="md-primary ut-disabled-soft">{{processedData && processedData.Source || "Auto"}}</button>
+
           </md-card-actions>
           <md-card-content>
             <md-input-container class="md-block ut-source">
@@ -28,12 +29,13 @@
           <md-card-actions layout="row" layout-align="end center">
             <button md-button
               *ngFor="#lang of languages"
-              (click)=selectLang(lang)
+              (click)=asyncSelectLang(lang)
               class="md-raised"
               [class.md-primary]="lang.code === selectedLang.code">{{lang.title}}</button>
-            <button hide-xs md-button
+            <button md-button
               class="md-icon-button"
-              (click)="showAdvanced($event)">
+              (click)="showAdvanced($event)"
+              [class.md-primary]="languages.indexOf(selectedLang) === -1">
               <i md-icon>more_horiz</i>
             </button>
           </md-card-actions>

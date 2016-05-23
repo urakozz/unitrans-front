@@ -44,7 +44,7 @@ export class AppComponent {
 
     constructor(public userService: UserService, public router: Router) {
       this._clearInitLoadAnimation()
-      console.log("app user in", userService.in)
+      // console.log("app user in", userService.in)
       window.fetch(userService.getHost()).then(res => console.log(res)).catch(()=>{console.log("^^^ Do not worry, I'm weared")})
     }
 
