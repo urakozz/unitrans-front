@@ -17,17 +17,19 @@ import {MATERIAL_DIRECTIVES, MdDialog, Media, MdDialogConfig, MdDialogBasic, MdD
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, AutogrowDirective,MATERIAL_DIRECTIVES]
 })
 export class Start {
-    token: string;
-    selectedLang: Lang;
-    languages: Lang[] ;
-    languagesAll: Lang[] = LANGS;
-    sourceText: string;
-    processedData: any;
+    private token: string;
+    public selectedLang: Lang;
+    private languages: Lang[] ;
+    public languagesAll: Lang[] = LANGS;
+    public sourceText: string;
+    public processedData: any;
     private _searchTermStream = new Subject<string>();
     private _langStream = new Subject<Lang>();
     // private clip: ZC.ZeroClipboardClient;
     private _justCopied: boolean;
-    status:string
+    private _recognition: boolean;
+    private speech:any;
+    public status:string
 
     // formGroup: ControlGroup = new ControlGroup({
     //   source: new Control()
@@ -47,6 +49,7 @@ export class Start {
       this.initLang()
       this.initStream()
       this.initLangStreamSubscribe()
+      this.initSpeechKit()
       //ZeroClipboard.config({"swfPath":"https://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf"})
       //this.clip = new ZeroClipboard()
       }
@@ -85,11 +88,102 @@ export class Start {
           return this.doRequest(term)
         })
         .subscribe(data => {
-          console.log("subs",data)
           this.processedData = data
         }, err =>{
           console.error("translation stream error:" , err)
         })
+    }
+
+    initSpeechKit(){
+      let w = <any>window
+      w.ya.speechkit.settings.apikey = '38677360-f6ae-4ad0-8482-962928d0f026'
+      w.ya.speechkit.audiocontext = new (w.AudioContext || w.webkitAudioContext)();
+      this.speech = new w.ya.speechkit.SpeechRecognition();
+      // var textline = new w.ya.speechkit.Textline('my_id', {
+      //       apikey: '38677360-f6ae-4ad0-8482-962928d0f026',
+      //       onInputFinished: function(text) {
+      //           this.sourceText=text
+      //       }
+      //   });
+    }
+
+    get isRecognitionSupported(){
+      let w = <any>window
+      return w.ya.speechkit.isSupported()
+    }
+
+    recognizeSpeech(): void{
+      if(this._recognition){
+        this.speech.stop();
+        return
+      }
+      this._recognition = true
+      // w.ya.speechkit.recognize({
+      //     // Функция будет вызвана, когда распознавание завершится.
+      //     doneCallback: (text)=>{
+      //         console.log("Финальный результат распознавания: " + text);
+      //         this._recognition = false
+      //         this.sourceText = text
+      //     },
+      //     // Функция вызовется, как только сессия будет инициализирована.
+      //     initCallback: ()=>{
+      //       this._recognition = true
+      //          console.log("Процесс распознавания запущен.");
+      //
+      //     },
+      //     // Вызывается в случае возникновения ошибки.
+      //     errorCallback: (err) => {
+      //          console.log("Возникла ошибка: " + err);
+      //          this._recognition = false
+      //     },
+      //     // Длительность промежутка тишины, при наступлении которой
+      //     // распознавание завершается.
+      //     utteranceSilence: 60
+      //
+      // });
+
+      this.speech.start({
+          // Вызывается после успешной инициализации сессии.
+          initCallback: ()=>{
+              console.log("Началась запись звука.");
+          },
+          // Данная функция вызывается многократно.
+          // Ей передаются промежуточные результаты распознавания.
+          // После остановки распознавания этой функции
+          // будет передан финальный результат.
+          dataCallback: (text, done, merge, time) => {
+              console.log("Распознанный текст: " + text);
+              console.log("Является ли результат финальным:" + done);
+              console.log("Число обработанных запросов, по которым выдан ответ от сервера: " + merge);
+              console.log("Время начала и конца распознанного фрагмента речи: " + time);
+
+              this.sourceText = text
+              this.asyncTranslator()
+          },
+          // Вызывается при возникновении ошибки (например, если передан неверный API-ключ).
+          errorCallback: (err) => {
+              console.log("Возникла ошибка: " + err);
+              this._recognition = false
+          },
+          // Содержит сведения о ходе процесса распознавания.
+          infoCallback: (info) => {
+              console.log("Отправлено данных на сервер: " , info.sent_bytes);
+              console.log("Отправлено пакетов на сервер: " , info.packages);
+              console.log("Количество пакетов, которые обработал сервер: " + info.processed);
+              console.log("До какой частоты понижена частота дискретизации звука: " + info.format);
+          },
+          // Будет вызвана после остановки распознавания.
+          stopCallback: ()=> {
+              console.log("Запись звука прекращена.");
+              this._recognition = false
+          },
+          // Возвращать ли промежуточные результаты.
+          particialResults: true,
+          // Длительность промежутка тишины (в сантисекундах),
+          // при наступлении которой API начнет преобразование
+          // промежуточных результатов в финальный текст.
+          utteranceSilence: 60
+      });
     }
 
     get processedText(){
@@ -137,8 +231,8 @@ export class Start {
       this.doRequest(this.sourceText).subscribe(data => this.processedData = data)
     }
 
-    asyncTranslator(term:string): void {
-      this._searchTermStream.next(term)
+    asyncTranslator(): void {
+      this._searchTermStream.next(this.sourceText)
     }
 
     copy(e, ti){

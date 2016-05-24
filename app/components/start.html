@@ -13,12 +13,19 @@
               disabled="true">
               <i md-icon>more_horiz</i>
             </button>
+            <button md-button
+              class="md-icon-button"
+              [class.md-primary]="_recognition"
+              (click)="recognizeSpeech()"
+              *ngIf="isRecognitionSupported">
+              <i md-icon>mic</i>
+            </button>
             <button md-button disabled="true" class="md-primary ut-disabled-soft">{{processedData && processedData.Source || "Auto"}}</button>
 
           </md-card-actions>
           <md-card-content>
             <md-input-container class="md-block ut-source">
-              <textarea md-input autogrow rows="1" [(ngModel)]="sourceText" #term (keyup)="asyncTranslator(term.value)" placeholder="Source"></textarea>
+              <textarea md-input autogrow rows="1" [(ngModel)]="sourceText" (keyup)="asyncTranslator()" placeholder="Source"></textarea>
             </md-input-container>
           </md-card-content>
         </md-card>
