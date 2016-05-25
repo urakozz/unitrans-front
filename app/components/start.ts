@@ -9,6 +9,8 @@ import {Subject} from 'rxjs/Subject'
 
 import {Lang, LANGS} from '../models/lang';
 import {AutogrowDirective} from '../directives/textarea'
+import {Dictionary} from "../service/dictionary";
+
 import {MATERIAL_DIRECTIVES, MdDialog, Media, MdDialogConfig, MdDialogBasic, MdDialogRef} from "ng2-material/all";
 
 @Component({
@@ -39,7 +41,8 @@ export class Start {
       public http: Http,
       public dialog: MdDialog,
       public media: Media,
-      protected element: ElementRef) {
+      protected element: ElementRef,
+      protected dict: Dictionary) {
       this.token = localStorage.getItem("jwt")
       // this.formGroup.valueChanges.subscribe((values) => {
       //   this.asyncTranslator(values.source)

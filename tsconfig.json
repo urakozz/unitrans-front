@@ -37,6 +37,7 @@
     "./app/directives/textarea.ts",
     "./app/models/lang.ts",
     "./app/models/user.ts",
+    "./app/service/dictionary.ts",
     "./app/service/firebase.ts",
     "./app/service/hero-service.ts",
     "./app/service/hero/hero.ts",

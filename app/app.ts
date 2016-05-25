@@ -1,6 +1,6 @@
 import{ FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common"
 import {Component, Injectable} from 'angular2/core'
-import {Http} from 'angular2/http'
+import {Http, JSONP_PROVIDERS} from 'angular2/http'
 import {LocationStrategy} from 'angular2/router'
 import {ROUTER_DIRECTIVES, RouteConfig, RouterOutlet, Router, RouterLink, AsyncRoute, Location} from 'angular2/router'
 import {LoggedInRouterOutlet} from './utils/routerOutlet';
@@ -10,6 +10,7 @@ import {HeroService} from "./service/hero-service"
 import {Logger} from "./service/logger"
 import {AuthHttp} from './service/jwt'
 import {UserService} from './service/user'
+import {Dictionary} from './service/dictionary'
 import {Start} from "./components/start"
 import {List} from "./components/list"
 import {Login} from "./components/login"
@@ -25,6 +26,7 @@ if((<any>window).__production) {
 @Component({
   selector: 'unitrans-app',
   directives: [CORE_DIRECTIVES,LoggedInRouterOutlet,RouterLink,MATERIAL_DIRECTIVES],
+  providers:[JSONP_PROVIDERS, Dictionary],
   templateUrl:"app/app.html"
 })
 @RouteConfig([
