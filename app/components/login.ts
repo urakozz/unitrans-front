@@ -1,9 +1,9 @@
-import {Component} from "angular2/core"
-import {FormBuilder, Validators, ControlGroup} from "angular2/common"
-import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
-import {TimerWrapper} from 'angular2/src/facade/async'
-import {PromiseWrapper} from 'angular2/src/facade/promise'
-import {Router, ROUTER_DIRECTIVES} from 'angular2/router'
+import {Component} from "@angular/core"
+import {FormBuilder, Validators, ControlGroup} from "@angular/common"
+import {FORM_DIRECTIVES, CORE_DIRECTIVES} from '@angular/common'
+import {TimerWrapper} from '@angular/core/src/facade/async'
+import {PromiseWrapper} from '@angular/core/src/facade/promise'
+import {Router, ROUTER_DIRECTIVES} from '@angular/router'
 import {AuthHttp} from '../service/jwt'
 import {Logger} from '../service/logger'
 import {status, json} from '../utils/fetch'
@@ -14,7 +14,7 @@ import {UserService} from "../service/user"
 import {
   MdPatternValidator,
   MATERIAL_DIRECTIVES
-} from "ng2-material/all";
+} from "ng2-material";
 
 //let template = require('./list.html');
 
@@ -78,7 +78,7 @@ export class Login {
       this.userService.login(this.model)
         .then(() => {
           console.log("login component ok")
-          this.router.parent.navigateByUrl('/panel');
+          this.router.navigateByUrl('/panel');
         })
         .catch((error) => {
           console.log("login component error catch: ", error.message);

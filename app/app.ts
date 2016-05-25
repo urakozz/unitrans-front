@@ -1,9 +1,14 @@
-import{ FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common"
-import {Component, Injectable} from 'angular2/core'
-import {Http, JSONP_PROVIDERS} from 'angular2/http'
-import {LocationStrategy} from 'angular2/router'
-import {ROUTER_DIRECTIVES, RouteConfig, RouterOutlet, Router, RouterLink, AsyncRoute, Location} from 'angular2/router'
-import {LoggedInRouterOutlet} from './utils/routerOutlet';
+import{ FORM_DIRECTIVES, CORE_DIRECTIVES} from "@angular/common"
+import {Component, Injectable} from '@angular/core'
+import {Http, JSONP_PROVIDERS} from '@angular/http'
+//import {ROUTER_DIRECTIVES, RouteConfig, RouterOutlet, Router, RouterLink, Location} from '@angular/router'
+//import {LoggedInRouterOutlet} from './utils/routerOutlet';
+import {
+  ROUTER_DIRECTIVES,
+  ROUTER_PROVIDERS,
+  Router,
+  Routes
+} from '@angular/router';
 // import {FirebaseRef as firebase} from './service/firebase'
 import {Hero} from "./service/hero/hero"
 import {HeroService} from "./service/hero-service"
@@ -12,29 +17,28 @@ import {AuthHttp} from './service/jwt'
 import {UserService} from './service/user'
 import {Dictionary} from './service/dictionary'
 import {Start} from "./components/start"
-import {List} from "./components/list"
 import {Login} from "./components/login"
 import {Signup} from "./components/signup"
 
 import {Panel} from "./components/private/panel"
-import {MATERIAL_DIRECTIVES} from "ng2-material/all";
-import {enableProdMode} from 'angular2/core';
+import {MATERIAL_DIRECTIVES, MATERIAL_PROVIDERS} from "ng2-material";
+import {MdToolbar} from '@angular2-material/toolbar';
+import {enableProdMode} from '@angular/core';
 if((<any>window).__production) {
   enableProdMode()
 }
 
 @Component({
   selector: 'unitrans-app',
-  directives: [CORE_DIRECTIVES,LoggedInRouterOutlet,RouterLink,MATERIAL_DIRECTIVES],
-  providers:[JSONP_PROVIDERS, Dictionary],
+  directives: [CORE_DIRECTIVES,ROUTER_DIRECTIVES,MATERIAL_DIRECTIVES,MdToolbar],
+  providers: [JSONP_PROVIDERS, Dictionary, MATERIAL_PROVIDERS],
   templateUrl:"app/app.html"
 })
-@RouteConfig([
-  { path: '/', component: Start, as:"Start" },
-  { path:"/list", component: List, as:"List"},
-  { path:"/login", component: Login, as:"Login"},
-  { path:"/signup", component: Signup, as:"Signup"},
-  { path:"/panel", component: Panel, as:"Panel"},
+@Routes([
+  { path: '/', component: Start},
+  { path:"/login", component: Login},
+  { path:"/signup", component: Signup},
+  { path:"/panel", component: Panel},
   // new AsyncRoute({
   //   path: '/panel',
   //   loader: () => System.import('build/app/components/private/panel').then(m => m.Panel),
@@ -52,7 +56,7 @@ export class AppComponent {
 
     logout(){
       this.userService.logout()
-      this.router.navigate(["Start"])
+      this.router.navigate(["/"])
     }
 
     _clearInitLoadAnimation(){

@@ -1,9 +1,9 @@
-import {Component} from "angular2/core"
-import {FormBuilder, Validators, ControlGroup} from "angular2/common"
-import {TimerWrapper} from 'angular2/src/facade/async';
-import {PromiseWrapper} from 'angular2/src/facade/promise';
-import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
-import {Router, ROUTER_DIRECTIVES} from 'angular2/router'
+import {Component} from "@angular/core"
+import {FormBuilder, Validators, ControlGroup} from "@angular/common"
+import {TimerWrapper} from '@angular/core/src/facade/async';
+import {PromiseWrapper} from '@angular/core/src/facade/async';
+import {FORM_DIRECTIVES, CORE_DIRECTIVES} from '@angular/common'
+import {Router, ROUTER_DIRECTIVES} from '@angular/router'
 import {AuthHttp} from '../service/jwt'
 import {Logger} from '../service/logger'
 import {status, json} from '../utils/fetch'
@@ -13,7 +13,7 @@ import {UserService} from "../service/user"
 import {
   MdPatternValidator,
   MATERIAL_DIRECTIVES
-} from "ng2-material/all";
+} from "ng2-material";
 
 @Component({
     selector: 'signup',
@@ -73,7 +73,7 @@ export class Signup {
       this.userService.signup(this.model)
       .then(() => {
         console.log("singup component ok")
-        this.router.parent.navigateByUrl('/panel');
+        this.router.navigateByUrl('/panel');
       })
       .catch((error) => {
         console.log("signup component error catch: ", error.message);

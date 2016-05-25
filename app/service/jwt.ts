@@ -1,6 +1,6 @@
-import {Injectable, Inject} from 'angular2/core';
+import {Injectable, Inject} from '@angular/core';
 
-import {Http, HTTP_PROVIDERS, Headers, BaseRequestOptions, Request, Response, RequestOptions, RequestOptionsArgs, RequestMethod} from 'angular2/http';
+import {Http, HTTP_PROVIDERS, Headers, BaseRequestOptions, Request, Response, RequestOptions, RequestOptionsArgs, RequestMethod} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
 //let {Observable} = Rx;

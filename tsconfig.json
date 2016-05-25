@@ -29,7 +29,6 @@
   "files": [
     "./app/app.ts",
     "./app/boot.ts",
-    "./app/components/list.ts",
     "./app/components/login.ts",
     "./app/components/private/panel.ts",
     "./app/components/signup.ts",

@@ -1,12 +1,12 @@
 /// <reference path="../typings/index.d.ts" />
-import {bootstrap}    from 'angular2/platform/browser'
-import {provide} from 'angular2/core'
+import {bootstrap}    from '@angular/platform-browser-dynamic'
+import {provide} from '@angular/core'
 import {AppComponent} from './app'
 import {AuthHttp} from './service/jwt'
 import {UserService} from './service/user'
-import {ROUTER_PROVIDERS} from 'angular2/router'
-import {HTTP_PROVIDERS} from 'angular2/http'
-import {MATERIAL_PROVIDERS} from 'ng2-material/all'
+import {ROUTER_PROVIDERS} from '@angular/router'
+import {HTTP_PROVIDERS} from '@angular/http'
+import {MATERIAL_PROVIDERS} from 'ng2-material'
 import 'rxjs/Rx';
 
 

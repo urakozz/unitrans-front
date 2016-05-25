@@ -1,11 +1,11 @@
-import {Component} from "angular2/core"
-import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
-import {Router} from 'angular2/router'
+import {Component} from "@angular/core"
+import {FORM_DIRECTIVES, CORE_DIRECTIVES} from '@angular/common'
+import {Router} from '@angular/router'
 import { Observable } from 'rxjs/Observable';
 
 import {AuthHttp} from '../../service/jwt'
 import {UserService} from "../../service/user"
-import {MATERIAL_DIRECTIVES} from "ng2-material/all";
+import {MATERIAL_DIRECTIVES} from "ng2-material";
 
 @Component({
     selector: 'panel',
@@ -29,7 +29,7 @@ export class Panel {
                 this.keys = res.json().keys
               }, (err) => {
                 this.userService.logout()
-                this.router.parent.navigate(['Start']);
+                this.router.navigate(['/']);
               });
     }
 

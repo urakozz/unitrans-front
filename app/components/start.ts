@@ -1,8 +1,7 @@
-import {Component, ElementRef, Input, Output, EventEmitter} from "angular2/core"
-import {Control, ControlGroup} from "angular2/common"
-import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/common'
-import {Http, Headers, Request, Response, RequestOptions, RequestMethod} from "angular2/http"
-import {TimerWrapper} from 'angular2/src/facade/async'
+import {Component, ElementRef, Input, Output, EventEmitter} from "@angular/core"
+import {Control, ControlGroup} from "@angular/common"
+import {FORM_DIRECTIVES, CORE_DIRECTIVES} from '@angular/common'
+import {Http, Headers, Request, Response, RequestOptions, RequestMethod} from "@angular/http"
 
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject'
@@ -11,12 +10,13 @@ import {Lang, LANGS} from '../models/lang';
 import {AutogrowDirective} from '../directives/textarea'
 import {Dictionary} from "../service/dictionary";
 
-import {MATERIAL_DIRECTIVES, MdDialog, Media, MdDialogConfig, MdDialogBasic, MdDialogRef} from "ng2-material/all";
+import {MATERIAL_DIRECTIVES, MdDialog} from "ng2-material";
+import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 
 @Component({
     selector: 'start',
     templateUrl: "app/components/start.html",
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, AutogrowDirective,MATERIAL_DIRECTIVES]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, AutogrowDirective, MATERIAL_DIRECTIVES, MD_INPUT_DIRECTIVES]
 })
 export class Start {
     private token: string;
@@ -33,14 +33,9 @@ export class Start {
     private speech:any;
     public status:string
 
-    // formGroup: ControlGroup = new ControlGroup({
-    //   source: new Control()
-    // });
 
     constructor(
       public http: Http,
-      public dialog: MdDialog,
-      public media: Media,
       protected element: ElementRef,
       protected dict: Dictionary) {
       this.token = localStorage.getItem("jwt")
@@ -261,17 +256,14 @@ export class Start {
       })
     }
 
-    showAdvanced(ev) {
-      let config = new CustomDialogConfig()
-        .lang(this.selectedLang, this.languagesAll, this._langStream)
-        .targetEvent(ev);
-      this.dialog.open(DialogCustom, this.element, config)
-        .then((ref: MdDialogRef) => {
-          // ref.whenClosed.then((lang:Lang) => {
-          //   lang && this.asyncSelectLang(lang)
-          //   console.log("set lang")
-          // })
-        });
+    selectLangCode(l: string, dialog){
+      this.languagesAll.forEach(i => {
+        if (i.code == l){
+          this.asyncSelectLang(i)
+        }
+      })
+
+      dialog.close()
     }
 
     private doRequest(value: string): Observable<Object>{
@@ -284,64 +276,4 @@ export class Start {
         headers: authHeader
       }))).map(req => <Object>req.json());
     }
-}
-
-
-class CustomDialogConfig extends MdDialogConfig {
-    lang(lang: Lang, languages:Lang[], langStream:Subject<Lang>):MdDialogConfig {
-        this.context.lang = lang;
-        this.context.languages = languages;
-        this.context.langStream = langStream;
-        return this;
-    }
-}
-
-@Component({
-  selector: 'dialog-custom',
-  template: `
-    <div layout="column" layout-align="center center">
-      <!-- <button md-button class="md-padding"
-        *ngFor="#_lang of languages"
-        (click)=selectLang(_lang)
-        class="md-raised"
-        [class.md-primary]="_lang.code === lang.code">{{_lang.title}}</button> -->
-        <span>Select language:</span>
-        <md-input-container>
-          <select (change)="selectLangCode($event.target.value)">
-            <option *ngFor="#_lang of languages" [value]="_lang.code" [selected]="_lang.code === lang.code">
-              {{_lang.title}}
-            </option>
-          </select>
-        </md-input-container>
-          <button md-button (click)="dialog.close(null)">
-            <span>Dismiss</span>
-          </button>
-    </div>
-  `,
-  styles: [``],
-  directives: [MATERIAL_DIRECTIVES]
-})
-class DialogCustom {
-  @Input() lang: Lang;
-  @Input() languages: Lang[]
-  @Input() langStream:Subject<Lang>
-
-  constructor(private dialog: MdDialogRef) {
-
-  }
-
-  selectLang(lang: Lang){
-    this.lang=lang
-    this.dialog.close(lang)
-  }
-  selectLangCode(l: string){
-    this.languages.forEach(i => {
-      if (i.code == l){
-        this.lang=i
-        this.langStream.next(i)
-      }
-    })
-
-    this.dialog.close(this.lang)
-  }
 }
