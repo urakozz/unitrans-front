@@ -30,8 +30,8 @@ export class Start {
     // private clip: ZC.ZeroClipboardClient;
     private _justCopied: boolean;
     private _recognition: boolean;
-    private speech:any;
-    public status:string
+    private speech: any;
+    public status: string;
 
     // formGroup: ControlGroup = new ControlGroup({
     //   source: new Control()
@@ -42,7 +42,7 @@ export class Start {
       public dialog: MdDialog,
       public media: Media,
       protected element: ElementRef,
-      protected dict: Dictionary) {
+      protected dictionary: Dictionary) {
       this.token = localStorage.getItem("jwt")
       // this.formGroup.valueChanges.subscribe((values) => {
       //   this.asyncTranslator(values.source)
@@ -111,6 +111,7 @@ export class Start {
     }
 
     get isRecognitionSupported(){
+      //return false
       let w = <any>window
       return w.ya.speechkit.isSupported()
     }
