@@ -25,13 +25,15 @@ export class Start {
     public languagesAll: Lang[] = LANGS;
     public sourceText: string;
     public processedData: any;
+    public dictData: any;
     private _searchTermStream = new Subject<string>();
+    private _searchTermStreamFiltered = new Subject<string>();
     private _langStream = new Subject<Lang>();
     // private clip: ZC.ZeroClipboardClient;
-    private _justCopied: boolean;
     private _recognition: boolean;
     private speech: any;
     public status: string;
+    public transc:any = {}
 
     // formGroup: ControlGroup = new ControlGroup({
     //   source: new Control()
@@ -50,7 +52,8 @@ export class Start {
 
       this.languages = this.languagesAll.filter(l => !!~["en", "ru"].indexOf(l.code))
       this.initLang()
-      this.initStream()
+      this.initStreamObservable()
+      this.initStreamObservableSubscribers()
       this.initLangStreamSubscribe()
       this.initSpeechKit()
       //ZeroClipboard.config({"swfPath":"https://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf"})
@@ -78,23 +81,37 @@ export class Start {
         })
     }
 
-    private initStream(): void{
+    private initStreamObservable(): void{
       this._searchTermStream
         .debounceTime(200)
+        .map((term:string) => term.trim())
         .distinctUntilChanged()
-        .switchMap((term:string) => {
-          term = term.trim()
-          if(!term){
-            this.processedData = undefined
-            return Observable.empty()
-          }
-          return this.doRequest(term)
+        .subscribe(s => {
+          this._searchTermStreamFiltered.next(s)
         })
-        .subscribe(data => {
-          this.processedData = data
-        }, err =>{
-          console.error("translation stream error:" , err)
-        })
+      //this._searchTermStreamObservable =
+    }
+
+    private initStreamObservableSubscribers():void{
+      let translationObservable = this._searchTermStreamFiltered.switchMap((term:string) => {
+        return this.doRequest(term)
+      })
+      translationObservable.subscribe(data => {
+        this.processedData = data
+      }, err =>{
+        console.error("translation stream error:" , err)
+      })
+
+      translationObservable.switchMap((data:any) => {
+        if(!data){
+          return Observable.of(undefined)
+        }
+        return this.dictionary.lookup(data.Original, data.Source, this.selectedLang.code)
+      }).subscribe(data => {
+        this.dictData = data
+      }, err =>{
+        console.error("dict stream err:" , err)
+      })
     }
 
     initSpeechKit(){
@@ -113,7 +130,7 @@ export class Start {
     get isRecognitionSupported(){
       //return false
       let w = <any>window
-      return w.ya.speechkit.isSupported()
+      return w.ya && w.ya.speechkit && w.ya.speechkit.isSupported()
     }
 
     recognizeSpeech(): void{
@@ -224,16 +241,16 @@ export class Start {
     _doSelectLang(lang: Lang): void {
       this.selectedLang = lang
       localStorage.setItem("lang", lang.code)
-      this.translateForce()
+      this._searchTermStreamFiltered.next(this.sourceText)
     }
 
-    translateForce(): void {
-      if (!this.sourceText){
-        this.processedData = undefined
-        return
-      }
-      this.doRequest(this.sourceText).subscribe(data => this.processedData = data)
-    }
+    // translateForce(): void {
+    //   if (!this.sourceText){
+    //     this.processedData = undefined
+    //     return
+    //   }
+    //   this.doRequest(this.sourceText).subscribe(data => this.processedData = data)
+    // }
 
     asyncTranslator(): void {
       this._searchTermStream.next(this.sourceText)
@@ -256,9 +273,9 @@ export class Start {
     }
 
     justCopied(){
-      this._justCopied = true
+      this.transc.__justCopied = true
       Observable.of(false).delay(500).subscribe(b => {
-        this._justCopied = b
+        this.transc.__justCopied = b
       })
     }
 
@@ -276,6 +293,9 @@ export class Start {
     }
 
     private doRequest(value: string): Observable<Object>{
+      if(!value){
+        return Observable.of(undefined)
+      }
       let authHeader = new Headers();
       return this.http.request(new Request(new RequestOptions({
         method: RequestMethod.Post,

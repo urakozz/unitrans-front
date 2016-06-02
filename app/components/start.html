@@ -4,8 +4,9 @@
   <!-- <p>Try out translation across multiple translations right here</p> -->
   <div flex>
 
+    <!--L1:cards -->
     <section layout="row" layout-xs="column" layout-wrap>
-      <div flex>
+      <div flex><!-- l1:card:L -->
         <md-card>
           <md-card-actions layout="row" layout-align="end center">
             <button md-button
@@ -31,7 +32,7 @@
         </md-card>
       </div>
 
-      <div flex #transc>
+      <div flex><!-- l1:card:R -->
         <md-card>
           <md-card-actions layout="row" layout-align="end center">
             <button md-button
@@ -54,6 +55,16 @@
           </md-card-content>
         </md-card>
 
+      </div>
+
+    </section>
+
+    <!--L2:controls -->
+    <section layout="row" layout-xs="column" layout-wrap>
+      <div flex><!-- l2:controls:L -->
+
+      </div>
+      <div flex> <!-- l2:controls:R -->
         <section layout="row" layout-align="end center" *ngIf="processedData">
 
           <!-- <span (click)="transc.__show = !transc.__show">
@@ -65,11 +76,58 @@
             <i *ngIf="transc.__show" md-icon>keyboard_arrow_down</i>
           </button>
           <button md-button hide-xs class="md-icon-button" (click)="copy($event, transitem)">
-            <i md-icon *ngIf="!_justCopied">content_copy</i>
-            <i md-icon *ngIf="_justCopied">done</i>
+            <i md-icon *ngIf="!transc.__justCopied">content_copy</i>
+            <i md-icon *ngIf="transc.__justCopied">done</i>
           </button>
         </section>
+      </div>
+    </section>
 
+    <!-- l3:details -->
+    <section layout="row" layout-xs="column" layout-wrap>
+      <div flex><!-- l3:details:L -->
+        <section layout="column" *ngIf="dictData && dictData.def.length">
+          <md-card>
+            <md-card-header>
+              <md-card-header-text>
+                <span class="md-subhead">Dictionary</span>
+              </md-card-header-text>
+            </md-card-header>
+            <md-card-content>
+              <section *ngFor="#def of dictData.def">
+                <p><b>{{def.text}}</b> <i>-{{def.pos}}</i> <i>({{def.ts}})</i></p>
+                <ul>
+                  <li *ngFor="#tr of def.tr">
+                    <b>{{tr.text}}</b> <i>-{{tr.pos}} <span *ngIf="tr.asp">({{tr.asp}})</span><span *ngIf="tr.gen">, {{tr.gen}}</span></i>
+                    <section *ngIf="tr.mean"><i *ngFor="#mean of tr.mean; #i = index">{{mean.text}}<span *ngIf="i < tr.mean.length - 1">, </span></i></section>
+                    <section *ngIf="tr.syn">
+                      <p>Synonyms:</p>
+                      <ul>
+                        <li *ngFor="#syn of tr.syn">
+                          <b>{{syn.text}}</b> <i>-{{syn.pos}} <span *ngIf="syn.asp">({{syn.asp}})</span><span *ngIf="syn.gen">, {{syn.gen}}</span></i>
+
+                        </li>
+                      </ul>
+                    </section>
+
+                    <section *ngIf="tr.ex">
+                      <p>Examples:</p>
+                      <ul>
+                        <li *ngFor="#ex of tr.ex">
+                          <b>{{ex.text}}</b> - <i>{{ex.tr[0].text}}</i>
+                        </li>
+                      </ul>
+                    </section>
+                    <!-- {{tr | json}} -->
+                  </li>
+                </ul>
+              </section>
+            </md-card-content>
+          </md-card>
+        </section>
+      </div>
+
+      <div flex><!-- l3:details:R -->
         <section layout="column" *ngIf="transc.__show">
           <md-card *ngFor="#item of processedDetails">
             <md-card-header>
@@ -85,16 +143,9 @@
             </md-card-content>
           </md-card>
         </section>
-
       </div>
 
     </section>
-
-
-    <!-- <md-card *ngFor="#card of cards">
-      {{card}}
-    </md-card> -->
-
 
   </div>
 <!--

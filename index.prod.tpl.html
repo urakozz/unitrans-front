@@ -28,8 +28,8 @@
     window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
   <% } %>
 </script>
-  <script async src="https://webasr.yandex.net/jsapi/v1/webspeechkit.js" type="text/javascript"></script>
-  <script async src="/<%= htmlWebpackPlugin.files.js %>"></script>
+  <script src="https://webasr.yandex.net/jsapi/v1/webspeechkit.js" type="text/javascript"></script>
+  <script src="/<%= htmlWebpackPlugin.files.js %>"></script>
   <script type="text/javascript">
       (function (d, w, c) {
         if(!window.__production){

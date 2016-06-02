@@ -3,6 +3,7 @@ var sass = require('gulp-sass');
 var replace = require('gulp-replace');
 var webpack = require('webpack-stream');
 var gulpWatch = require('gulp-watch');
+var del = require('del');
 
 var PROD = JSON.parse(process.env.PROD || '0');
 
@@ -35,8 +36,11 @@ gulp.task('sass', ["fonts"], function () {
     .pipe(gulp.dest(target.css));
 });
 gulp.task("fonts", function(){
-  gulp.src(paths.ng2material+'/MaterialIcons*')
+  return gulp.src(paths.ng2material+'/MaterialIcons*')
   .pipe(gulp.dest(target.css));
+})
+gulp.task("clear", function(){
+  return del(['build/webpack/prod/*.js'])
 })
 
 // gulp.task('js', function (done) {
@@ -56,7 +60,7 @@ gulp.task("fonts", function(){
 //         .on('end', done);
 // })
 
-gulp.task('webpack', function(done){
+gulp.task('webpack', ['clear'], function(done){
   return gulp.src('src/boot.ts')
     .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest('./build/webpack/prod'));

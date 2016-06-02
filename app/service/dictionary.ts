@@ -18,14 +18,28 @@ export class Dictionary{
   initLangs(){
     return this.jsonp.get(this.host + "/getLangs", {search:this._getParams()})
       .map((res:Response) => res.json())
-      .subscribe(d => this.directions)
+      .subscribe(d => {this.directions = d})
+  }
+
+  getDirections(){
+    return this.directions
   }
 
   lookup(text:string, from: string, to:string):Observable<Object>{
     let params = this._getParams()
-    if(this.directions.indexOf(from+"-"+to) > -1){
-      return Observable.empty()
+    let lang = from+"-"+to
+    if(!text){
+      return Observable.of(undefined)
     }
+    if (text.split(" ").length > 3){
+      return Observable.of(undefined)
+    }
+    if(this.directions.indexOf(lang) === -1){
+      return Observable.of(undefined)
+    }
+    params.append("lang", lang)
+    params.append("text", text)
+
     return this.jsonp.get(this.host + "/lookup", {search:params})
       .map((res:Response) => res.json())
   }
